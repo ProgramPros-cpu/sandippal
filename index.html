@@ -324,6 +324,11 @@
             overflow: hidden;
         }
 
+        @keyframes hero-entry {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         .hero-glow-element {
             position: absolute;
             top: 50%;
@@ -343,6 +348,85 @@
         .hero-container {
             position: relative;
             z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            width: 100%;
+            animation: hero-entry 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-text-content {
+            flex: 1;
+            max-width: 650px;
+        }
+
+        /* --- NEW HERO VISUALS (Desktop Overlay) --- */
+        .hero-visuals {
+            display: none; /* Hidden on mobile */
+            flex: 1;
+            position: relative;
+            height: 600px;
+            max-width: 500px;
+        }
+
+        .hero-visual-frame {
+            position: absolute;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            filter: grayscale(40%) contrast(1.1);
+            transition: var(--transition-smooth);
+            background-color: var(--bg-surface);
+        }
+
+        .hero-visual-frame:hover {
+            filter: grayscale(0%) contrast(1.1);
+            z-index: 10 !important;
+            transform: scale(1.05) !important;
+            box-shadow: 0 30px 60px rgba(229, 9, 20, 0.2);
+        }
+
+        .hero-visual-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        @keyframes float-up-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .frame-front {
+            width: 300px;
+            aspect-ratio: 4/5;
+            right: 0;
+            top: 10%;
+            z-index: 3;
+            animation: float-up-down 6s ease-in-out infinite;
+        }
+
+        .frame-back {
+            width: 320px;
+            aspect-ratio: 16/10;
+            right: 140px;
+            top: 5%;
+            z-index: 1;
+            opacity: 0.4;
+            animation: float-up-down 8s ease-in-out infinite reverse;
+        }
+
+        .frame-bottom {
+            width: 220px;
+            aspect-ratio: 1/1;
+            right: 220px;
+            bottom: 10%;
+            z-index: 2;
+            opacity: 0.8;
+            animation: float-up-down 7s ease-in-out infinite 1s;
         }
 
         .hero-badge {
@@ -411,7 +495,6 @@
             background-color: var(--text-light);
             color: var(--bg-darker);
             border-color: var(--text-light);
-            transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         }
 
@@ -476,7 +559,6 @@
 
         .bento-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
@@ -793,7 +875,6 @@
             background-color: var(--accent);
             box-shadow: 0 0 25px rgba(229, 9, 20, 0.3);
             border-color: transparent;
-            transform: translateY(-2px);
         }
 
         .hidden-project {
@@ -950,7 +1031,6 @@
             border-color: var(--accent);
             color: var(--text-light);
             box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
-            transform: translateY(-3px);
         }
 
         .site-footer {
@@ -999,6 +1079,58 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* --- NEW ENHANCEMENTS CSS --- */
+        /* Custom Cinematic Cursor */
+        .custom-cursor {
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+            background-color: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%); 
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, opacity 0.3s;
+            mix-blend-mode: difference;
+        }
+        .custom-cursor.hovering { 
+            width: 50px; height: 50px; 
+            background-color: var(--text-light); 
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) { .custom-cursor { display: none; } } /* Hide on mobile */
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; background-color: var(--accent);
+            width: 0%; z-index: 10001; transition: width 0.1s linear;
+        }
+
+        /* Vignette Effect */
+        .vignette {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.65) 150%);
+            pointer-events: none; z-index: 9998;
+        }
+
+        /* Marquee Trusted By Section */
+        .marquee-section { 
+            padding: 3rem 0; background-color: var(--bg-surface); 
+            border-bottom: 1px solid var(--border-dim); border-top: 1px solid var(--border-dim);
+            overflow: hidden; white-space: nowrap; display: flex; align-items: center;
+        }
+        .marquee-content { 
+            display: inline-block; animation: marquee 25s linear infinite; 
+            font-size: 1.25rem; font-family: var(--font-serif); font-style: italic; color: var(--text-dim); 
+        }
+        .marquee-content:hover { animation-play-state: paused; }
+        .marquee-dot { 
+            display: inline-block; width: 6px; height: 6px; 
+            background-color: var(--accent); border-radius: 50%; 
+            margin: 0 4rem; vertical-align: middle; 
+        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Smooth Filtering Transition */
+        .project-card { transition: opacity 0.4s ease, transform 0.4s ease; }
+        .project-card.hiding { opacity: 0; transform: scale(0.95); pointer-events: none; }
 
         /* AUTH MODAL STYLES */
         .auth-overlay {
@@ -1074,34 +1206,22 @@
         .auth-google-btn:hover { background-color: var(--border-dim); }
         .auth-message { font-size: 0.8rem; color: var(--accent); text-align: center; min-height: 1.2rem; }
 
-        @media (min-width: 768px) {
-            .navbar { height: 100px; }
-            .nav-links { display: flex; }
-            .mobile-menu-toggle { display: none; }
-            
-            .bento-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 280px; }
-            .bento-main-profile { grid-column: span 2; grid-row: span 2; min-height: auto; }
-            .bento-bio { grid-column: span 2; grid-row: span 1; }
-            .bento-suite-img { grid-column: span 1; grid-row: span 1; }
-            .bento-accent-box { grid-column: span 1; grid-row: span 1; }
-            
-            .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 5rem; }
-            .project-card.desktop-offset { margin-top: 6rem; }
-            .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-            
-            .search-filter-wrapper { flex-direction: row; justify-content: space-between; align-items: center; }
-            .contact-layout { flex-direction: row; justify-content: space-between; align-items: flex-end; }
-            .site-footer { flex-direction: row; justify-content: space-between; text-align: left; }
-        }
-
         @media (min-width: 1024px) {
             .container { padding: 0; }
             .section-header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
             .sec-description { text-align: right; }
+            
+            /* Reveal hero visuals on desktop */
+            .hero-visuals { display: block; }
         }
     </style>
 </head>
 <body>
+
+    <!-- New Enhancements: Scroll Progress, Vignette, Cursor -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="vignette"></div>
+    <div class="custom-cursor" id="customCursor"></div>
 
     <!-- Film Grain Overlay -->
     <div class="film-grain-layer"></div>
@@ -1204,30 +1324,65 @@
         <!-- HERO SEGMENT -->
         <section class="hero" id="home">
             <div class="hero-glow-element"></div>
-            <div class="container hero-container trigger-fade-up">
-                <div class="hero-badge">
-                    <span class="badge-line"></span>
-                    <span>Visual Storyteller & Editor</span>
+            <div class="container hero-container">
+                
+                <!-- Grouped existing text content -->
+                <div class="hero-text-content">
+                    <div class="hero-badge">
+                        <span class="badge-line"></span>
+                        <span>Visual Storyteller & Editor</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Crafting <br>
+                        <span class="hero-title-italic">Cinematic</span> <br>
+                        Narratives.
+                    </h1>
+                    <p class="hero-paragraph">
+                        I am Sandip Pal, an editor dedicated to transforming raw footage into compelling emotional experiences through precision cutting and color workflows.
+                    </p>
+                    <div>
+                        <a href="#about" class="cta-btn">
+                            <span>The Director's Cut</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                <h1 class="hero-title">
-                    Crafting <br>
-                    <span class="hero-title-italic">Cinematic</span> <br>
-                    Narratives.
-                </h1>
-                <p class="hero-paragraph">
-                    I am Sandip Pal, an editor dedicated to transforming raw footage into compelling emotional experiences through precision cutting and color workflows.
-                </p>
-                <div>
-                    <a href="#about" class="cta-btn">
-                        <span>The Director's Cut</span>
-                        <i data-lucide="arrow-right"></i>
-                    </a>
+
+                <!-- NEW DESKTOP VISUALS -->
+                <div class="hero-visuals" aria-hidden="true">
+                    <div class="hero-visual-frame frame-back">
+                        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800" alt="Editing workspace timeline">
+                    </div>
+                    <div class="hero-visual-frame frame-bottom">
+                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=800" alt="Cinematic color grade frame">
+                    </div>
+                    <div class="hero-visual-frame frame-front">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=800" alt="Camera lens aesthetic">
+                    </div>
                 </div>
+                
             </div>
             
             <div class="scroll-down-widget">
                 <span class="scroll-label">Scroll</span>
                 <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- CLIENT MARQUEE SEGMENT -->
+        <section class="marquee-section trigger-fade-up">
+            <div class="marquee-content" aria-hidden="true">
+                <span>Sony Music</span><span class="marquee-dot"></span>
+                <span>Vogue India</span><span class="marquee-dot"></span>
+                <span>Netflix</span><span class="marquee-dot"></span>
+                <span>Amazon Studios</span><span class="marquee-dot"></span>
+                <span>HBO Max</span><span class="marquee-dot"></span>
+                <!-- Duplicated for seamless loop -->
+                <span>Sony Music</span><span class="marquee-dot"></span>
+                <span>Vogue India</span><span class="marquee-dot"></span>
+                <span>Netflix</span><span class="marquee-dot"></span>
+                <span>Amazon Studios</span><span class="marquee-dot"></span>
+                <span>HBO Max</span><span class="marquee-dot"></span>
             </div>
         </section>
 
@@ -1464,8 +1619,12 @@
     <!-- Standard UI Scripts (Non-Firebase) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Only initialize Lucide for the few internal UI elements remaining (Menu/Close/Play)
-            lucide.createIcons();
+            // Safely initialize Lucide to prevent script failure if CDN is blocked
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                console.warn('Lucide icons failed to load. Please check network connection.');
+            }
 
             // Mobile Menu Drawer Handler
             const openToggle = document.getElementById('mobileMenuOpen');
@@ -1508,8 +1667,16 @@
 
                     if (matchesCategory && matchesSearch) {
                         article.style.display = 'block';
+                        // Slight delay to allow display:block to apply before removing hiding class for animation
+                        setTimeout(() => { article.classList.remove('hiding'); }, 20);
                     } else {
-                        article.style.display = 'none';
+                        article.classList.add('hiding');
+                        // Wait for CSS animation to finish before removing from document flow
+                        setTimeout(() => {
+                            if (article.classList.contains('hiding')) {
+                                article.style.display = 'none';
+                            }
+                        }, 400); 
                     }
                 });
             }
@@ -1538,6 +1705,8 @@
 
             // High-Performance Intersection Observer for Fade-Up Animations
             const animationElements = document.querySelectorAll('.trigger-fade-up');
+            
+            // FIXED: Changed threshold from 0.1 to 0 to ensure tall elements always trigger on mobile
             const animationObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1545,13 +1714,22 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { root: null, rootMargin: '0px', threshold: 0.1 });
-            animationElements.forEach(element => animationObserver.observe(element));
+            }, { root: null, rootMargin: '0px 0px -10px 0px', threshold: 0 });
             
+            animationElements.forEach(element => animationObserver.observe(element));
+
+            // SAFETY FALLBACK: Guarantee all sections become visible after a short delay
+            // just in case the browser observer delays or the user scrolls too fast
+            setTimeout(() => {
+                document.querySelectorAll('.trigger-fade-up:not(.is-visible)').forEach(el => {
+                    el.classList.add('is-visible');
+                });
+            }, 2500);
+
             // UI Modal Tabs Logic
             const authTabs = document.querySelectorAll('.auth-tab');
             const authSections = document.querySelectorAll('.auth-section');
-            
+
             authTabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     authTabs.forEach(t => t.classList.remove('active'));
@@ -1561,6 +1739,40 @@
                     document.getElementById(tab.getAttribute('data-target')).classList.add('active');
                     document.getElementById('authMessage').innerText = '';
                 });
+            });
+
+            // --- NEW ENHANCEMENTS JS ---
+            
+            // 1. Scroll Progress Bar
+            const scrollProgress = document.getElementById('scrollProgress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (scrollTop / scrollHeight) * 100;
+                scrollProgress.style.width = scrolled + '%';
+            });
+
+            // 2. Custom Cinematic Cursor
+            const cursor = document.getElementById('customCursor');
+            const interactables = document.querySelectorAll('a, button, input, .project-card, .skill-card, .auth-tab');
+            
+            // Update cursor position
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            // Add hover expansion effect
+            interactables.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+            });
+
+            // Handle filtering dynamic cursor updates
+            searchInput.addEventListener('input', () => {
+                 setTimeout(() => {
+                     // re-bind if new elements ever got added, but for now just handles states cleanly
+                 }, 450);
             });
         });
     </script>
