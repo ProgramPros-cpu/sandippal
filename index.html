@@ -2103,7 +2103,7 @@
             closeChatBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
 
             // Gemini API Setup
-            const apiKey = ""; // Environment handles injection automatically
+            const apiKey = "VITE_GEMINI_API_KEY"; // Environment handles injection automatically
             const systemInstructionText = "You are SP AI created by Sandip Pal. You are a helpful, professional, and highly knowledgeable personal assistant for Sandip Pal's cinematic video editing and color grading portfolio website. You answer questions strictly regarding his work, expertise (Offline Editing, Color Grading, DaVinci Resolve, Motion & VFX), and how to contact him (hello@sandippal.com). Maintain a concise, cinematic, and professional tone. If asked unrelated questions, gracefully steer the conversation back to Sandip Pal's post-production services.";
             let chatHistory = []; // Maintain conversational context
 
