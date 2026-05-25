@@ -1,1143 +1,1715 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandip Pal | Futuristic Visual Creator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Sandip Pal">
+    <meta name="geo.region" content="IN-WB">
+    <meta name="geo.placename" content="Durgapur">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Sandip Pal | Cinematic Video Editor, Colorist & Visual Storyteller</title>
+    <meta name="description" content="Official portfolio of Sandip Pal, an elite cinematic video editor and colorist based in India. Specializing in transforming raw footage into compelling narrative and commercial films.">
+    <meta name="keywords" content="Sandip Pal, Video Editor, Cinematic Editor, Colorist, DaVinci Resolve, Post Production, Film Editor, Durgapur Editor, India Video Editor, Offline Editing">
+    <link rel="canonical" href="https://sandippal.netlify.app/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile">
+    <meta property="profile:first_name" content="Sandip">
+    <meta property="profile:last_name" content="Pal">
+    <meta property="og:url" content="https://sandippal.netlify.app/">
+    <meta property="og:title" content="Sandip Pal | Cinematic Video Editor & Colorist">
+    <meta property="og:description" content="Transforming raw footage into compelling emotional experiences through precision cutting, offline editing, and elite cinematic grading. Explore the director's cut.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1200">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sandippal.netlify.app/">
+    <meta property="twitter:title" content="Sandip Pal | Cinematic Video Editor & Colorist">
+    <meta property="twitter:description" content="Explore selected narrative, documentary, and commercial edit layouts of visual storyteller Sandip Pal.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1200">
+
+    <!-- Google Fonts Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons Library (Kept for basic UI icons like menu/close/play) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Schema.org JSON-LD Structured Data for Enhanced Rich Snippet SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sandip Pal",
+      "url": "https://sandippal.netlify.app/",
+      "image": "https://images.unsplash.com/photo-1605369572399-05d8d64a0f6e?auto=format&fit=crop&q=80&w=1200",
+      "jobTitle": "Cinematic Video Editor & Colorist",
+      "description": "Professional video post-production artist specializing in narrative shorts, commercial film sequences, and offline editing.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Durgapur",
+        "addressRegion": "West Bengal",
+        "addressCountry": "IN"
+      },
+      "sameAs": [
+        "https://www.instagram.com/",
+        "https://vimeo.com/",
+        "https://www.linkedin.com/"
+      ],
+      "knowsAbout": [
+        "Video Editing",
+        "Color Grading",
+        "Offline Editing",
+        "Post-Production Direction",
+        "DaVinci Resolve Color Pipelines",
+        "Cinematic Continuity Editing"
+      ]
+    }
+    </script>
+
     <style>
         :root {
-            --primary: #00f7ff;
-            --secondary: #ff00aa;
-            --dark: #0a0a12;
-            --darker: #050508;
-            --light: #e0e0ff;
-            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+            /* Palette Design Tokens (Guarantees elegant dark theme & rules out dark-on-dark issues) */
+            --bg-dark: #050505;
+            --bg-darker: #000000;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0f0f12;
+            --accent: #e50914; /* Authentic director's/cinematic red */
+            --accent-hover: #b80710;
+            --text-light: #ffffff;
+            --text-muted: #a1a1aa;
+            --text-dim: #71717a;
+            --border-dim: #27272a;
+            --border-light: rgba(255, 255, 255, 0.1);
+            
+            /* Typography Scale tokens */
+            --font-sans: 'Outfit', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            
+            --max-width: 1200px;
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        * {
+
+        /* Essential Reset & Accessibility Settings */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Orbitron', 'Segoe UI', sans-serif;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Global Body - Enforcing High-Contrast globally with white text on a dark backdrop */
         body {
-            background-color: var(--dark);
-            color: var(--light);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-sans);
             overflow-x: hidden;
-            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
         }
-        
-        body::before {
-            content: '';
+
+        ::selection {
+            background-color: var(--accent);
+            color: var(--text-light);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            display: inline-block;
+        }
+
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .site-header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, var(--darker) 70%);
-            pointer-events: none;
-            z-index: -1;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            transition: var(--transition-smooth);
         }
-        
-        /* Particle background */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-        
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 3rem;
+
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            background-color: rgba(10, 10, 18, 0.7);
-            border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+            height: 80px;
         }
-        
+
         .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: var(--neon-glow);
-            animation: pulse 2s infinite alternate;
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-light);
         }
-        
-        @keyframes pulse {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 45px var(--primary); }
+
+        .logo-dot {
+            color: var(--accent);
         }
-        
+
         .nav-links {
-            display: flex;
-            gap: 2rem;
+            display: none;
+            gap: 2.5rem;
+            align-items: center;
         }
-        
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 1.1rem;
+
+        .nav-link {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
             position: relative;
             padding: 0.5rem 0;
-            transition: all 0.3s ease;
         }
-        
-        .nav-links a::after {
+
+        .nav-link::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
+            height: 1px;
+            background-color: var(--accent);
+            transition: var(--transition-smooth);
         }
-        
-        .nav-links a:hover {
-            color: var(--primary);
+
+        .nav-link:hover, .nav-link.active-link {
+            color: var(--text-light);
         }
-        
-        .nav-links a:hover::after {
+
+        .nav-link:hover::after {
             width: 100%;
         }
         
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            z-index: 101;
+        .auth-btn-nav {
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            color: var(--text-light);
         }
         
-        /* Hero Section */
-        #hero {
+        .auth-btn-nav::after { display: none; }
+        .auth-btn-nav:hover {
+            background-color: var(--accent);
+            color: var(--text-light);
+        }
+
+        .user-profile-nav {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+        .user-profile-nav.active {
+            display: flex;
+        }
+        .user-email-display {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-dim);
+            color: var(--text-light);
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-menu-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .mobile-navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
             height: 100vh;
+            background-color: var(--bg-darker);
+            z-index: 2000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-            position: relative;
+            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
         }
-        
-        .profile-container {
+
+        .mobile-navigation.is-active {
+            transform: translateX(0);
+        }
+
+        .mobile-close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-dim);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-close-btn:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .mobile-nav-link {
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-color: var(--bg-dark);
+            padding-top: 100px;
+            overflow: hidden;
+        }
+
+        .hero-glow-element {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vw;
+            max-width: 600px;
+            max-height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(229, 9, 20, 0.15) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .badge-line {
+            width: 30px;
+            height: 1px;
+            background-color: var(--accent);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 7.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .hero-title-italic {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-dim);
+            text-transform: none;
+        }
+
+        .hero-paragraph {
+            max-width: 500px;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.125rem 2.25rem;
+            border-radius: 9999px;
+            background-color: rgba(10, 10, 10, 0.7);
+            border: 1px solid var(--border-dim);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(8px);
+        }
+
+        .cta-btn:hover {
+            background-color: var(--text-light);
+            color: var(--bg-darker);
+            border-color: var(--text-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .scroll-down-widget {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0.5;
+            animation: bounce-widget 2s infinite;
+        }
+
+        .scroll-label {
+            font-size: 0.625rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+            color: var(--accent);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        @keyframes bounce-widget {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .section-padding {
+            padding: 8rem 0;
+        }
+
+        /* ABOUT PROFILE BENTO GRID */
+        .about-section {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-dim);
+            border-bottom: 1px solid var(--border-dim);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            grid-auto-rows: minmax(250px, auto);
+            margin-top: 3rem;
+        }
+
+        .bento-card {
+            background-color: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-light);
+            transition: var(--transition-smooth);
+        }
+
+        .bento-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .bento-img-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(15%) contrast(1.05);
+        }
+
+        .bento-card:hover .bento-img {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .bento-main-profile {
+            grid-column: span 1;
+            grid-row: span 2;
+            min-height: 400px;
+        }
+
+        .bento-bio {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .bento-bio h3 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-style: italic;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .bento-bio p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .bento-accent-box {
+            background: linear-gradient(135deg, var(--accent) 0%, #8a050b 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 2rem 0;
-            z-index: 2;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            border: none;
         }
-        
-        .profile-pic {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
+
+        .bento-stat-num {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--text-light);
+            letter-spacing: -0.02em;
+        }
+
+        .bento-stat-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.75rem;
+        }
+
+        .works-section {
+            background-color: var(--bg-darker);
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sec-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .sec-title span {
+            color: var(--text-dim);
+        }
+
+        .sec-description {
+            max-width: 320px;
+            font-size: 0.875rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* SEARCH FILTER CONTROLS (Improved Discoverability) */
+        .search-filter-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-dim);
+            border-radius: 9999px;
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        .project-search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
+        }
+
+        .project-search-input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            border: 1px solid var(--border-dim);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .filter-btn.is-active, .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-light);
+            background-color: var(--accent);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        .project-card {
+            display: block;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .media-frame {
+            position: relative;
+            background-color: var(--bg-surface);
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .aspect-cinemascope { aspect-ratio: 2.39 / 1; }
+        .aspect-portrait { aspect-ratio: 4 / 5; }
+        .aspect-widescreen { aspect-ratio: 16 / 10; }
+
+        .project-thumbnail {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 3px solid var(--primary);
-            box-shadow: var(--neon-glow);
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
+            filter: grayscale(15%);
         }
-        
-        .profile-pic:hover {
+
+        .media-frame::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .play-overlay-trigger {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 10;
+        }
+
+        .play-overlay-trigger svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            margin-left: 4px;
+        }
+
+        .project-card:hover .project-thumbnail {
             transform: scale(1.05);
-            box-shadow: 0 0 30px var(--primary);
+            filter: grayscale(0%);
         }
-        
-        .hero-social-links {
+
+        .project-card:hover .media-frame::after {
+            opacity: 1;
+        }
+
+        .project-card:hover .play-overlay-trigger {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            background-color: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(229, 9, 20, 0.4);
+        }
+
+        .project-meta-details {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .proj-name {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--text-light);
+            transition: var(--transition-smooth);
+        }
+
+        .project-card:hover .proj-name {
+            color: var(--accent);
+        }
+
+        .proj-genre {
+            font-size: 0.875rem;
+            color: var(--text-dim);
+            margin-top: 0.25rem;
+        }
+
+        .proj-role-badge {
+            font-size: 0.625rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid var(--border-dim);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .project-card:hover .proj-role-badge {
+            border-color: var(--text-muted);
+            color: var(--text-light);
+        }
+
+        .load-more-section {
+            margin-top: 5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .secondary-btn {
+            padding: 1.25rem 2.5rem;
+            border-radius: 9999px;
+            background-color: var(--bg-surface);
+            color: var(--text-light);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            box-shadow: 0 0 0 1px var(--border-light);
+            transition: var(--transition-smooth);
+        }
+
+        .secondary-btn:hover {
+            background-color: var(--accent);
+            box-shadow: 0 0 25px rgba(229, 9, 20, 0.3);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .hidden-project {
+            display: none !important;
+        }
+
+        .expertise-section {
+            background-color: var(--bg-dark);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .skill-card {
+            background-color: transparent;
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .skill-card:hover {
+            background-color: var(--bg-surface);
+            border-color: var(--border-light);
+        }
+
+        .skill-icon-outer {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            transition: var(--transition-smooth);
+        }
+
+        .skill-icon-outer svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .skill-card:hover .skill-icon-outer {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(229, 9, 20, 0.3);
+        }
+
+        .skill-card-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            transition: var(--transition-smooth);
+        }
+
+        .skill-card:hover .skill-card-title {
+            color: var(--accent);
+        }
+
+        .skill-card-text {
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .contact-section {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-dim);
+        }
+
+        .contact-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .contact-eyebrow {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-main-heading {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            transition: var(--transition-smooth);
+        }
+
+        .contact-main-heading:hover {
+            color: var(--accent);
+        }
+
+        .contact-mail-link {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-style: italic;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-dim);
+            padding-bottom: 0.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .contact-mail-link:hover {
+            color: var(--text-light);
+            border-color: var(--accent);
+        }
+
+        .socials-channel-grid {
             display: flex;
             gap: 1.5rem;
             margin-top: 1rem;
         }
-        
-        .hero-social-link {
-            font-size: 1.5rem;
-            color: var(--light);
-            transition: all 0.3s ease;
-        }
-        
-        .hero-social-link:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
-            text-shadow: var(--neon-glow);
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            z-index: 2;
-        }
-        
-        .hero-title {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1.2;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: var(--dark);
-            border: none;
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(0, 247, 255, 0.8);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(0, 247, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
-        }
-        
-        /* Floating elements */
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .floating-element {
-            position: absolute;
-            background: rgba(0, 247, 255, 0.1);
-            border: 1px solid rgba(0, 247, 255, 0.3);
+
+        /* Fixed Invisible Social Icons by enforcing strict SVG styling and inline paths */
+        .channel-btn {
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
-            filter: blur(1px);
-            animation: float 15s infinite linear;
+            border: 1px solid var(--border-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            background-color: transparent;
         }
-        
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-            100% { transform: translateY(0) rotate(360deg); }
+
+        .channel-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: var(--transition-smooth);
         }
-        
-        /* Sections */
-        section {
-            padding: 5rem 2rem;
-            position: relative;
+
+        .channel-btn:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--text-light);
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+            transform: translateY(-3px);
         }
-        
-        .section-title {
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        /* Portfolio Grid */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+        .site-footer {
+            margin-top: 6rem;
+            border-top: 1px solid var(--border-dim);
+            padding-top: 3rem;
+            display: flex;
+            flex-direction: column;
             gap: 1.5rem;
-            margin-top: 2rem;
+            align-items: center;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            text-align: center;
         }
-        
-        .portfolio-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            aspect-ratio: 16/9;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 247, 255, 0.2);
+
+        .footer-highlight {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+
+        .footer-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent);
         }
-        
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.3);
+
+        .film-grain-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 10000; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
-        
-        .portfolio-item:hover img {
-            transform: scale(1.1);
+
+        .trigger-fade-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        .portfolio-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(5, 5, 8, 0.9), transparent);
-            padding: 1.5rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .portfolio-item:hover .portfolio-overlay {
+
+        .trigger-fade-up.is-visible {
+            opacity: 1;
             transform: translateY(0);
         }
-        
-        .portfolio-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .portfolio-category {
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-        
-        /* About Section */
-        .about-content {
+
+        /* AUTH MODAL STYLES */
+        .auth-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
             display: flex;
             align-items: center;
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
         }
-        
-        .about-image {
-            flex: 1;
+        .auth-overlay.active { opacity: 1; pointer-events: auto; }
+        .auth-modal {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            padding: 2.5rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
             position: relative;
-            min-width: 300px;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
         }
-        
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            box-shadow: var(--neon-glow);
-        }
-        
-        .about-image::before {
-            content: '';
+        .auth-overlay.active .auth-modal { transform: translateY(0); }
+        .auth-close-btn {
             position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--secondary);
-            border-radius: 10px;
-            z-index: -1;
-        }
-        
-        .about-text {
-            flex: 1;
-        }
-        
-        .about-text h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .about-text p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-        
-        .skills {
-            margin-top: 2rem;
-        }
-        
-        .skill-item {
-            margin-bottom: 1rem;
-        }
-        
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        
-        .skill-bar {
-            height: 8px;
-            background: rgba(0, 247, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-        }
-        
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .service-card {
-            background: rgba(10, 10, 18, 0.7);
-            border-radius: 10px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 247, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.3);
-            border-color: var(--primary);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .service-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .service-description {
-            opacity: 0.9;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        
-        .service-price {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-        
-        /* Contact Section */
-        .contact-container {
-            display: flex;
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .contact-info {
-            flex: 1;
-        }
-        
-        .contact-card {
-            background: rgba(10, 10, 18, 0.7);
-            border-radius: 10px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 247, 255, 0.2);
-            margin-bottom: 2rem;
-        }
-        
-        .contact-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .contact-detail {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .contact-icon {
-            font-size: 1.2rem;
-            margin-right: 1rem;
-            color: var(--primary);
-            width: 30px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
+            top: 1rem; right: 1rem;
+            color: var(--text-muted);
+            padding: 0.5rem;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 247, 255, 0.1);
-            color: var(--primary);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
         }
-        
-        .social-link:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-3px);
+        .auth-close-btn:hover { background-color: var(--border-dim); color: var(--accent); }
+        .auth-title {
+            font-size: 1.5rem; font-weight: 900; text-transform: uppercase;
+            letter-spacing: 0.05em; margin-bottom: 1.5rem; text-align: center;
         }
-        
-        .contact-form {
-            flex: 1;
-            background: rgba(10, 10, 18, 0.7);
-            border-radius: 10px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 247, 255, 0.2);
+        .auth-tabs {
+            display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-dim); padding-bottom: 0.5rem;
         }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
+        .auth-tab {
+            flex: 1; text-align: center; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+            padding: 0.5rem; border-radius: 4px; transition: var(--transition-smooth);
         }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
+        .auth-tab.active { color: var(--text-light); background-color: var(--border-dim); }
+        .auth-section { display: none; flex-direction: column; gap: 1rem; }
+        .auth-section.active { display: flex; }
+        .auth-input {
+            width: 100%; padding: 1rem; background-color: var(--bg-darker);
+            border: 1px solid var(--border-dim); color: var(--text-light);
+            border-radius: 6px; font-family: var(--font-sans); outline: none;
+            transition: var(--transition-smooth);
         }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: rgba(0, 247, 255, 0.05);
-            border: 1px solid rgba(0, 247, 255, 0.2);
-            border-radius: 5px;
-            color: var(--light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
+        .auth-input:focus { border-color: var(--accent); }
+        .auth-submit-btn {
+            width: 100%; padding: 1rem; background-color: var(--accent);
+            color: var(--text-light); border-radius: 6px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em; transition: var(--transition-smooth);
         }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+        .auth-submit-btn:hover { background-color: var(--accent-hover); }
+        .auth-google-btn {
+            width: 100%; padding: 1rem; background-color: var(--bg-surface);
+            border: 1px solid var(--border-dim); color: var(--text-light);
+            border-radius: 6px; font-weight: 700; display: flex; align-items: center;
+            justify-content: center; gap: 0.5rem; transition: var(--transition-smooth);
         }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* Footer */
-        footer {
-            background: rgba(5, 5, 8, 0.9);
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(0, 247, 255, 0.2);
-        }
-        
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-links a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-        
-        .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 1s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        
-        /* Responsive */
-        @media (max-width: 992px) {
-            .about-content, .contact-container {
-                flex-direction: column;
-            }
+        .auth-google-btn:hover { background-color: var(--border-dim); }
+        .auth-message { font-size: 0.8rem; color: var(--accent); text-align: center; min-height: 1.2rem; }
+
+        @media (min-width: 768px) {
+            .navbar { height: 100px; }
+            .nav-links { display: flex; }
+            .mobile-menu-toggle { display: none; }
             
-            .about-image, .about-text, .contact-info, .contact-form {
-                width: 100%;
-            }
+            .bento-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 280px; }
+            .bento-main-profile { grid-column: span 2; grid-row: span 2; min-height: auto; }
+            .bento-bio { grid-column: span 2; grid-row: span 1; }
+            .bento-suite-img { grid-column: span 1; grid-row: span 1; }
+            .bento-accent-box { grid-column: span 1; grid-row: span 1; }
             
-            .about-image {
-                margin-bottom: 2rem;
-            }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 5rem; }
+            .project-card.desktop-offset { margin-top: 6rem; }
+            .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+            
+            .search-filter-wrapper { flex-direction: row; justify-content: space-between; align-items: center; }
+            .contact-layout { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+            .site-footer { flex-direction: row; justify-content: space-between; text-align: left; }
         }
-        
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .profile-pic {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .hero-social-link {
-                font-size: 1.3rem;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: var(--darker);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: right 0.3s ease;
-                z-index: 100;
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .hamburger {
-                display: block;
-                font-size: 1.5rem;
-                color: var(--primary);
-            }
-            
-            .section-title {
-                font-size: 2.5rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .profile-pic {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .hero-social-links {
-                gap: 1rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
+
+        @media (min-width: 1024px) {
+            .container { padding: 0; }
+            .section-header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+            .sec-description { text-align: right; }
         }
     </style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div id="particles-js"></div>
-    
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">SP</div>
-        <div class="hamburger" id="hamburger">
-            <i class="fas fa-bars"></i>
+
+    <!-- Film Grain Overlay -->
+    <div class="film-grain-layer"></div>
+
+    <!-- SITE NAVIGATION HEADER -->
+    <header class="site-header">
+        <div class="container navbar">
+            <a href="#" class="logo" aria-label="Sandip Pal Homepage">
+                Sandip<span class="logo-dot">.</span>
+            </a>
+            
+            <nav class="nav-links" aria-label="Primary Navigation">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#work" class="nav-link">Work</a>
+                <a href="#expertise" class="nav-link">Expertise</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                
+                <!-- Auth Elements -->
+                <button id="navLoginBtn" class="nav-link auth-btn-nav">Client Login</button>
+                
+                <div id="userNavProfile" class="user-profile-nav">
+                    <span id="userEmailDisplay" class="user-email-display"></span>
+                    <button id="navLogoutBtn" class="nav-link auth-btn-nav">Logout</button>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-toggle" id="mobileMenuOpen" aria-label="Open Navigation Menu">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
-        <div class="nav-links" id="navLinks">
-            <a href="#home">Home</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </div>
+    </header>
+
+    <!-- FULLSCREEN MOBILE OVERLAY MENU -->
+    <nav class="mobile-navigation" id="mobileDrawer" aria-hidden="true">
+        <button class="mobile-close-btn" id="mobileMenuClose" aria-label="Close Navigation Menu">
+            <i data-lucide="x"></i>
+        </button>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#work" class="mobile-nav-link">Work</a>
+        <a href="#expertise" class="mobile-nav-link">Expertise</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+        <button id="mobileNavLoginBtn" class="mobile-nav-link" style="color: var(--accent);">Client Login</button>
+        <button id="mobileNavLogoutBtn" class="mobile-nav-link hidden-project" style="color: var(--text-dim);">Logout</button>
     </nav>
-    
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="floating-elements">
-            <div class="floating-element" style="width: 50px; height: 50px; top: 20%; left: 10%;"></div>
-            <div class="floating-element" style="width: 30px; height: 30px; top: 70%; left: 80%;"></div>
-            <div class="floating-element" style="width: 40px; height: 40px; top: 40%; left: 60%;"></div>
-            <div class="floating-element" style="width: 60px; height: 60px; top: 80%; left: 20%;"></div>
-        </div>
-        <div id="hero">
-            <div class="hero-content fade-in">
-                <h1 class="hero-title">Sandip Pal</h1>
-                <p class="hero-subtitle">Capturing Light, Crafting Vision - Future-Focused Visual Storytelling</p>
-                
-                <!-- Profile Picture Container -->
-                <div class="profile-container fade-in delay-1">
-                    <img src="https://source.unsplash.com/random/600x600/?portrait,photographer" alt="Sandip Pal" class="profile-pic">
-                    <div class="hero-social-links">
-                        <a href="#" class="hero-social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="hero-social-link"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="hero-social-link"><i class="fab fa-behance"></i></a>
-                        <a href="#" class="hero-social-link"><i class="fab fa-vimeo-v"></i></a>
-                        <a href="#" class="hero-social-link"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+
+    <!-- FIREBASE AUTH MODAL -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal">
+            <button class="auth-close-btn" id="closeAuthModal"><i data-lucide="x"></i></button>
+            <h2 class="auth-title">Client Access</h2>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-target="emailAuth">Email</button>
+                <button class="auth-tab" data-target="googleAuth">Google</button>
+                <button class="auth-tab" data-target="phoneAuth">Phone</button>
+            </div>
+
+            <div id="authMessage" class="auth-message"></div>
+
+            <!-- Email Section -->
+            <div class="auth-section active" id="emailAuth">
+                <input type="email" id="authEmail" class="auth-input" placeholder="Email Address">
+                <input type="password" id="authPassword" class="auth-input" placeholder="Password">
+                <button id="btnEmailLogin" class="auth-submit-btn">Sign In</button>
+                <button id="btnEmailSignup" class="auth-submit-btn" style="background-color: var(--bg-surface); border: 1px solid var(--border-dim);">Create Account</button>
+            </div>
+
+            <!-- Google Section -->
+            <div class="auth-section" id="googleAuth">
+                <p style="text-align: center; color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1rem;">Sign in instantly using your Google account to access your project files.</p>
+                <button id="btnGoogleLogin" class="auth-google-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    Continue with Google
+                </button>
+            </div>
+
+            <!-- Phone Section -->
+            <div class="auth-section" id="phoneAuth">
+                <div id="phoneInputStep">
+                    <input type="tel" id="authPhone" class="auth-input" placeholder="+1 234 567 8900">
+                    <button id="btnSendPhoneCode" class="auth-submit-btn">Send SMS Code</button>
                 </div>
-                
-                <div class="cta-buttons">
-                    <a href="#portfolio" class="btn btn-primary fade-in delay-2">View Portfolio</a>
-                    <a href="#contact" class="btn btn-secondary fade-in delay-3">Get In Touch</a>
+                <div id="phoneVerifyStep" style="display: none; flex-direction: column; gap: 1rem;">
+                    <input type="text" id="authCode" class="auth-input" placeholder="6-digit verification code">
+                    <button id="btnVerifyPhoneCode" class="auth-submit-btn">Verify & Sign In</button>
                 </div>
+                <div id="recaptcha-container" style="margin-top: 1rem;"></div>
             </div>
         </div>
-    </section>
-    
-    <!-- Portfolio Section -->
-    <section id="portfolio">
-        <h2 class="section-title fade-in">My Work</h2>
-        <div class="portfolio-grid">
-            <!-- Photography -->
-            <div class="portfolio-item fade-in">
-                <img src="https://source.unsplash.com/random/600x400/?photography,portrait" alt="Portrait Photography">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Urban Portraits</h3>
-                    <p class="portfolio-category">Photography</p>
+    </div>
+
+    <!-- MAIN VIEWPORT CONTAINER -->
+    <main>
+        
+        <!-- HERO SEGMENT -->
+        <section class="hero" id="home">
+            <div class="hero-glow-element"></div>
+            <div class="container hero-container trigger-fade-up">
+                <div class="hero-badge">
+                    <span class="badge-line"></span>
+                    <span>Visual Storyteller & Editor</span>
                 </div>
-            </div>
-            <div class="portfolio-item fade-in delay-1">
-                <img src="https://source.unsplash.com/random/600x400/?landscape,mountains" alt="Landscape Photography">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Mountain Horizons</h3>
-                    <p class="portfolio-category">Photography</p>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in delay-2">
-                <img src="https://source.unsplash.com/random/600x400/?street,night" alt="Street Photography">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Neon Streets</h3>
-                    <p class="portfolio-category">Photography</p>
+                <h1 class="hero-title">
+                    Crafting <br>
+                    <span class="hero-title-italic">Cinematic</span> <br>
+                    Narratives.
+                </h1>
+                <p class="hero-paragraph">
+                    I am Sandip Pal, an editor dedicated to transforming raw footage into compelling emotional experiences through precision cutting and color workflows.
+                </p>
+                <div>
+                    <a href="#about" class="cta-btn">
+                        <span>The Director's Cut</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
                 </div>
             </div>
             
-            <!-- Videography -->
-            <div class="portfolio-item fade-in">
-                <img src="https://source.unsplash.com/random/600x400/?wedding,ceremony" alt="Wedding Video">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Eternal Vows</h3>
-                    <p class="portfolio-category">Videography</p>
-                </div>
+            <div class="scroll-down-widget">
+                <span class="scroll-label">Scroll</span>
+                <div class="scroll-line"></div>
             </div>
-            <div class="portfolio-item fade-in delay-1">
-                <img src="https://source.unsplash.com/random/600x400/?commercial,product" alt="Commercial Video">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Product Launch</h3>
-                    <p class="portfolio-category">Videography</p>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in delay-2">
-                <img src="https://source.unsplash.com/random/600x400/?documentary,interview" alt="Documentary">
-                <div class="portfolio-overlay">
-                    <h3 class="portfolio-title">Human Stories</h3>
-                    <p class="portfolio-category">Videography</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- About Section -->
-    <section id="about">
-        <h2 class="section-title fade-in">About Me</h2>
-        <div class="about-content">
-            <div class="about-image fade-in">
-                <img src="https://source.unsplash.com/random/600x600/?photographer" alt="Sandip Pal">
-            </div>
-            <div class="about-text fade-in delay-1">
-                <h3>The Artist Behind The Lens</h3>
-                <p>With over 8 years of experience in visual storytelling, I specialize in creating captivating imagery that blends technical precision with artistic vision. My work spans commercial photography, cinematic videography, and experimental digital art.</p>
-                <p>I believe every frame should tell a story and evoke emotion. Whether it's a product shoot, wedding film, or abstract light painting, my approach combines cutting-edge technology with timeless composition principles.</p>
-                
-                <div class="skills">
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Photography</span>
-                            <span>95%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Video Editing</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Color Grading</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Visual Effects</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Services Section -->
-    <section id="services">
-        <h2 class="section-title fade-in">My Services</h2>
-        <div class="services-grid">
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-camera"></i>
-                </div>
-                <h3 class="service-title">Commercial Photography</h3>
-                <p class="service-description">High-quality product, fashion, and advertising photography with professional lighting and post-processing.</p>
-                <p class="service-price">Starting at $300/hr</p>
-                <a href="#contact" class="btn btn-secondary">Book Now</a>
-            </div>
-            <div class="service-card fade-in delay-1">
-                <div class="service-icon">
-                    <i class="fas fa-video"></i>
-                </div>
-                <h3 class="service-title">Video Production</h3>
-                <p class="service-description">Complete video production services including shooting, editing, and post-production for commercials, events, and more.</p>
-                <p class="service-price">Starting at $500/day</p>
-                <a href="#contact" class="btn btn-secondary">Book Now</a>
-            </div>
-            <div class="service-card fade-in delay-2">
-                <div class="service-icon">
-                    <i class="fas fa-film"></i>
-                </div>
-                <h3 class="service-title">Post-Production</h3>
-                <p class="service-description">Professional video editing, color grading, and visual effects to make your footage stand out.</p>
-                <p class="service-price">Starting at $50/hr</p>
-                <a href="#contact" class="btn btn-secondary">Book Now</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2 class="section-title fade-in">Get In Touch</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <div class="contact-card fade-in">
-                    <h3 class="contact-title">Contact Details</h3>
-                    <div class="contact-detail">
-                        <i class="fas fa-envelope contact-icon"></i>
-                        <span>contact@sandippal.com</span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-phone contact-icon"></i>
-                        <span>+1 (555) 123-4567</span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-map-marker-alt contact-icon"></i>
-                        <span>Mumbai, India</span>
-                    </div>
+        </section>
+
+        <!-- ABOUT PROFILE BENTO GRID -->
+        <section class="section-padding about-section" id="about">
+            <div class="container">
+                <header class="section-header trigger-fade-up">
+                    <h2 class="sec-title">The <br><span>Director's Cut</span></h2>
+                    <p class="sec-description">A glimpse into the mind, setup, and philosophy behind every timeline I build.</p>
+                </header>
+
+                <div class="bento-grid trigger-fade-up">
                     
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-vimeo-v"></i></a>
-                    </div>
+                    <!-- Main Profile Photo -->
+                    <article class="bento-card bento-main-profile">
+                        <div class="bento-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1605369572399-05d8d64a0f6e?auto=format&fit=crop&q=80&w=1200" alt="Sandip Pal on set" class="bento-img" loading="lazy">
+                        </div>
+                    </article>
+
+                    <!-- Text Bio Box -->
+                    <article class="bento-card bento-bio">
+                        <h3>"Editing is the invisible art of sculpting emotion."</h3>
+                        <p>Based in India, my approach roots deeply in understanding narrative psychology. Whether it's a 30-second commercial or a feature-length documentary, my goal is to curate pacing that breathes life into raw imagery.</p>
+                    </article>
+
+                    <!-- Editing Suite -->
+                    <article class="bento-card bento-suite-img">
+                        <div class="bento-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1574717024453-354056fadfd2?auto=format&fit=crop&q=80&w=800" alt="Editing timeline structure" class="bento-img" loading="lazy">
+                        </div>
+                    </article>
+
+                    <!-- Stats -->
+                    <article class="bento-card bento-accent-box">
+                        <span class="bento-stat-num">10+</span>
+                        <span class="bento-stat-label">Years of Crafting<br>Visual Harmony</span>
+                    </article>
+
                 </div>
+            </div>
+        </section>
+
+        <!-- WORKS DISPLAY GRID -->
+        <section class="section-padding works-section" id="work">
+            <div class="container">
                 
-                <div class="contact-card fade-in delay-1">
-                    <h3 class="contact-title">Availability</h3>
-                    <div class="contact-detail">
-                        <i class="fas fa-calendar-alt contact-icon"></i>
-                        <span>Monday - Friday: 9AM - 6PM</span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-clock contact-icon"></i>
-                        <span>Response Time: Within 24 hours</span>
+                <header class="section-header trigger-fade-up">
+                    <h2 class="sec-title">Selected <br><span>Works</span></h2>
+                    <p class="sec-description">A curated catalog of commercial edits, narrative cinema, and documentary timelines.</p>
+                </header>
+
+                <!-- Search and Filter Controls -->
+                <div class="search-filter-wrapper trigger-fade-up">
+                    <input type="text" id="projectSearch" class="project-search-input" placeholder="Search projects by name or genre..." aria-label="Search portfolio projects">
+                    
+                    <div class="filter-controls">
+                        <button class="filter-btn is-active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="narrative">Narrative</button>
+                        <button class="filter-btn" data-filter="commercial">Commercial</button>
+                        <button class="filter-btn" data-filter="music-video">Music Video</button>
                     </div>
                 </div>
+
+                <div class="portfolio-grid" id="portfolioGrid">
+                    
+                    <article class="project-card trigger-fade-up" data-category="music-video">
+                        <div class="media-frame aspect-cinemascope">
+                            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200" alt="Neon Nights music video editorial" class="project-thumbnail" loading="lazy">
+                            <div class="play-overlay-trigger" aria-hidden="true"><i data-lucide="play"></i></div>
+                        </div>
+                        <div class="project-meta-details">
+                            <div>
+                                <h3 class="proj-name">Neon Nights</h3>
+                                <p class="proj-genre">Music Video / 2025</p>
+                            </div>
+                            <span class="proj-role-badge">Offline Editor</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card desktop-offset trigger-fade-up" data-category="narrative">
+                        <div class="media-frame aspect-portrait">
+                            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1000" alt="The Urban Echo short cinematic documentary" class="project-thumbnail" loading="lazy">
+                            <div class="play-overlay-trigger" aria-hidden="true"><i data-lucide="play"></i></div>
+                        </div>
+                        <div class="project-meta-details">
+                            <div>
+                                <h3 class="proj-name">The Urban Echo</h3>
+                                <p class="proj-genre">Documentary / 2024</p>
+                            </div>
+                            <span class="proj-role-badge">Editor & Colorist</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card trigger-fade-up" data-category="commercial">
+                        <div class="media-frame aspect-widescreen">
+                            <img src="https://images.unsplash.com/photo-1601158935942-52255782d322?auto=format&fit=crop&q=80&w=1200" alt="Lumina Commercial production design sequence" class="project-thumbnail" loading="lazy">
+                            <div class="play-overlay-trigger" aria-hidden="true"><i data-lucide="play"></i></div>
+                        </div>
+                        <div class="project-meta-details">
+                            <div>
+                                <h3 class="proj-name">Lumina</h3>
+                                <p class="proj-genre">Commercial / 2024</p>
+                            </div>
+                            <span class="proj-role-badge">Post-Production</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card desktop-offset trigger-fade-up" data-category="commercial">
+                        <div class="media-frame aspect-cinemascope">
+                            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1200" alt="Fragments narrative fashion film structure" class="project-thumbnail" loading="lazy">
+                            <div class="play-overlay-trigger" aria-hidden="true"><i data-lucide="play"></i></div>
+                        </div>
+                        <div class="project-meta-details">
+                            <div>
+                                <h3 class="proj-name">Fragments</h3>
+                                <p class="proj-genre">Fashion Film / 2023</p>
+                            </div>
+                            <span class="proj-role-badge">Video Editor</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card trigger-fade-up hidden-project" data-category="narrative">
+                        <div class="media-frame aspect-cinemascope">
+                            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1200" alt="Echoes of Silence narrative short sequence" class="project-thumbnail" loading="lazy">
+                            <div class="play-overlay-trigger" aria-hidden="true"><i data-lucide="play"></i></div>
+                        </div>
+                        <div class="project-meta-details">
+                            <div>
+                                <h3 class="proj-name">Echoes of Silence</h3>
+                                <p class="proj-genre">Narrative Short / 2023</p>
+                            </div>
+                            <span class="proj-role-badge">Offline Editor</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card desktop-offset trigger-fade-up hidden-project" data-category="music-video">
+                        <div class="media-frame aspect-portrait">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000" alt="Retrograde music video color treatment frame" class="project-thumbnail" loading="lazy">
+                            <div class="play-overlay-trigger" aria-hidden="true"><i data-lucide="play"></i></div>
+                        </div>
+                        <div class="project-meta-details">
+                            <div>
+                                <h3 class="proj-name">Retrograde</h3>
+                                <p class="proj-genre">Music Video / 2022</p>
+                            </div>
+                            <span class="proj-role-badge">Colorist</span>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="load-more-section trigger-fade-up">
+                    <button class="secondary-btn" id="loadMoreBtn">Load More Projects</button>
+                </div>
+
             </div>
-            
-            <div class="contact-form fade-in delay-2">
-                <form>
-                    <div class="form-group">
-                        <label for="name" class="form-label">Your Name</label>
-                        <input type="text" id="name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" id="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="service" class="form-label">Service Needed</label>
-                        <select id="service" class="form-control">
-                            <option value="">Select a service</option>
-                            <option value="photography">Photography</option>
-                            <option value="videography">Videography</option>
-                            <option value="editing">Video Editing</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message" class="form-label">Your Message</label>
-                        <textarea id="message" class="form-control" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+        </section>
+
+        <!-- EXPERTISE SEGMENT -->
+        <section class="section-padding expertise-section" id="expertise">
+            <div class="container">
+                
+                <header class="section-header trigger-fade-up">
+                    <h2 class="sec-title">Area of <br><span>Expertise</span></h2>
+                </header>
+
+                <div class="skills-grid">
+                    
+                    <article class="skill-card trigger-fade-up">
+                        <div class="skill-icon-outer" aria-hidden="true"><i data-lucide="scissors"></i></div>
+                        <h3 class="skill-card-title">Offline Editing</h3>
+                        <p class="skill-card-text">Developing key editorial pacing structure, isolating absolute best performance frames, and composing structural harmony for raw narratives.</p>
+                    </article>
+
+                    <article class="skill-card trigger-fade-up">
+                        <div class="skill-icon-outer" aria-hidden="true"><i data-lucide="aperture"></i></div>
+                        <h3 class="skill-card-title">Color Grading</h3>
+                        <p class="skill-card-text">Refining and establishing narrative emotional context. Processing customized grade layouts, color matching across varied matrices, and handling DaVinci Resolve workflows.</p>
+                    </article>
+
+                    <article class="skill-card trigger-fade-up">
+                        <div class="skill-icon-outer" aria-hidden="true"><i data-lucide="layers"></i></div>
+                        <h3 class="skill-card-title">Motion & VFX</h3>
+                        <p class="skill-card-text">Polishing production layers through stylized typography design, title cards tracking, layout transitions, and composite cleanup treatments.</p>
+                    </article>
+
+                </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="footer-logo">Sandip Pal</div>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <p class="copyright">© 2023 Sandip Pal. All rights reserved.</p>
-    </footer>
-    
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        </section>
+
+        <!-- CONTACT SEGMENT -->
+        <section class="section-padding contact-section" id="contact">
+            <div class="container">
+                <div class="contact-layout trigger-fade-up">
+                    <div>
+                        <p class="contact-eyebrow">Let's Collaborate</p>
+                        <h2 class="contact-main-heading">Start a <br>Project.</h2>
+                        <a href="mailto:hello@sandippal.com" class="contact-mail-link">hello@sandippal.com</a>
+                    </div>
+
+                    <!-- SOCIAL LINKS (FIXED: Hardcoded Inline SVGs ensure absolute visibility and no ad-blocker interference) -->
+                    <div class="socials-channel-grid">
+                        <a href="https://www.instagram.com/" class="channel-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 2H17C19.7614 2 22 4.23858 22 7V17C22 19.7614 19.7614 22 17 22H7C4.23858 22 2 19.7614 2 17V7C2 4.23858 4.23858 2 7 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 11.3701C16.1234 12.2023 15.9813 13.0523 15.5938 13.7991C15.2063 14.5459 14.5932 15.1515 13.8416 15.5297C13.0901 15.9079 12.2385 16.0397 11.4078 15.906C10.5771 15.7723 9.80977 15.3801 9.21485 14.7852C8.61993 14.1902 8.22774 13.4229 8.09407 12.5922C7.96041 11.7615 8.09215 10.91 8.47033 10.1584C8.8485 9.40685 9.45419 8.79374 10.201 8.40624C10.9478 8.01874 11.7978 7.87661 12.63 8.00004C13.4789 8.12588 14.2649 8.52146 14.8717 9.1283C15.4785 9.73515 15.8741 10.5211 16 11.3701Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.5 6.5H17.51" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="https://vimeo.com/" class="channel-btn" target="_blank" rel="noopener noreferrer" aria-label="Vimeo">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 6.5C21.8 11.4 18 16 12 16C11.5 16 11 15.8 10.6 15.4C10.3 15.2 10 14.9 9.8 14.6L8 21.5L2 19L5 8.5C5.2 8.2 5.5 8 5.8 8H7C7.4 8 7.8 8.1 8.1 8.4C8.4 8.7 8.5 9.1 8.5 9.5V11L9.5 13C9.8 13.3 10.1 13.5 10.5 13.5C11 13.5 11.5 13 11.8 12.3C12.1 11.6 12.2 10.8 12 10.2C11.6 8.5 10 8 10 8C10 8 11.5 5.5 16 6C18 6.2 22 6.5 22 6.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/" class="channel-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <footer class="site-footer">
+                    <p>&copy; 2026 Sandip Pal. All rights reserved.</p>
+                    <p class="footer-highlight">Designed with <span class="footer-dot"></span> precision</p>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <!-- Standard UI Scripts (Non-Firebase) -->
     <script>
-        // Mobile Navigation
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                navLinks.classList.remove('active');
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        document.addEventListener('DOMContentLoaded', () => {
+            // Only initialize Lucide for the few internal UI elements remaining (Menu/Close/Play)
+            lucide.createIcons();
+
+            // Mobile Menu Drawer Handler
+            const openToggle = document.getElementById('mobileMenuOpen');
+            const closeToggle = document.getElementById('mobileMenuClose');
+            const drawerElement = document.getElementById('mobileDrawer');
+            const drawerLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function toggleDrawer(open) {
+                drawerElement.classList.toggle('is-active', open);
+                drawerElement.setAttribute('aria-hidden', !open);
+                document.body.style.overflow = open ? 'hidden' : '';
+            }
+
+            openToggle.addEventListener('click', () => toggleDrawer(true));
+            closeToggle.addEventListener('click', () => toggleDrawer(false));
+            drawerLinks.forEach(link => link.addEventListener('click', () => toggleDrawer(false)));
+
+            // ADVANCED SEARCH & FILTER LOGIC
+            const searchInput = document.getElementById('projectSearch');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectArticles = document.querySelectorAll('.project-card');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            let loadMoreClicked = false;
+
+            function filterProjects() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const activeFilterBtn = document.querySelector('.filter-btn.is-active');
+                const activeFilter = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+
+                projectArticles.forEach(article => {
+                    // Respect hidden state from 'Load More' if it hasn't been clicked
+                    if (article.classList.contains('hidden-project') && !loadMoreClicked) return;
+                    
+                    const category = article.getAttribute('data-category');
+                    const title = article.querySelector('.proj-name').innerText.toLowerCase();
+                    const genre = article.querySelector('.proj-genre').innerText.toLowerCase();
+
+                    const matchesCategory = (activeFilter === 'all' || category === activeFilter);
+                    const matchesSearch = searchTerm === '' || title.includes(searchTerm) || genre.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            }
+
+            // Bind Search Input Event
+            searchInput.addEventListener('input', filterProjects);
+
+            // Bind Filter Buttons Event
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('is-active'));
+                    button.classList.add('is-active');
+                    filterProjects();
+                });
+            });
+
+            // Load More Logic
+            loadMoreBtn.addEventListener('click', () => {
+                document.querySelectorAll('.hidden-project').forEach(project => {
+                    project.classList.remove('hidden-project');
+                });
+                loadMoreClicked = true;
+                loadMoreBtn.style.display = 'none';
+                filterProjects(); // Re-evaluate filters on newly exposed content
+            });
+
+            // High-Performance Intersection Observer for Fade-Up Animations
+            const animationElements = document.querySelectorAll('.trigger-fade-up');
+            const animationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+            animationElements.forEach(element => animationObserver.observe(element));
+            
+            // UI Modal Tabs Logic
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const authSections = document.querySelectorAll('.auth-section');
+            
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    authSections.forEach(s => s.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+                    document.getElementById('authMessage').innerText = '';
                 });
             });
         });
+    </script>
+
+    <!-- 
+      ======================================================================
+      Simulated config.js & Firebase Auth Module
+      ======================================================================
+    -->
+    <script type="module" id="firebase-module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+            GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber,
+            onAuthStateChanged, signOut
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        const firebaseConfig = typeof __firebase_config !== 'undefined' && __firebase_config 
+            ? JSON.parse(__firebase_config) 
+            : {
+                apiKey: "YOUR_API_KEY",
+                authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+                projectId: "YOUR_PROJECT_ID",
+                storageBucket: "YOUR_PROJECT_ID.appspot.com",
+                messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+                appId: "YOUR_APP_ID"
+            };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         
-        // Particle.js configuration
-        particlesJS('particles-js', {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#00f7ff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": true,
-                    "anim": {
-                        "enable": true,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": true,
-                        "speed": 2,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#00f7ff",
-                    "opacity": 0.2,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 1,
-                    "direction": "none",
-                    "random": true,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": true,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 140,
-                        "line_linked": {
-                            "opacity": 0.5
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
-        });
-        
-        // Scroll animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeInOnScroll = () => {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 100) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }
-            });
+        const authOverlay = document.getElementById('authOverlay');
+        const msgBox = document.getElementById('authMessage');
+        let confirmationResult = null;
+
+        const showMessage = (msg, isError = false) => {
+            msgBox.style.color = isError ? 'var(--accent)' : '#34A853';
+            msgBox.innerText = msg;
         };
-        
-        window.addEventListener('scroll', fadeInOnScroll);
-        window.addEventListener('load', fadeInOnScroll);
+
+        const toggleModal = (show) => {
+            if(show) {
+                authOverlay.classList.add('active');
+            } else {
+                authOverlay.classList.remove('active');
+                msgBox.innerText = '';
+            }
+        };
+
+        document.getElementById('navLoginBtn').addEventListener('click', () => toggleModal(true));
+        document.getElementById('mobileNavLoginBtn').addEventListener('click', () => {
+            document.getElementById('mobileDrawer').classList.remove('is-active');
+            toggleModal(true);
+        });
+        document.getElementById('closeAuthModal').addEventListener('click', () => toggleModal(false));
+
+        onAuthStateChanged(auth, (user) => {
+            const navLoginBtn = document.getElementById('navLoginBtn');
+            const userNavProfile = document.getElementById('userNavProfile');
+            const emailDisplay = document.getElementById('userEmailDisplay');
+            const mobileLoginBtn = document.getElementById('mobileNavLoginBtn');
+            const mobileLogoutBtn = document.getElementById('mobileNavLogoutBtn');
+
+            if (user) {
+                toggleModal(false);
+                navLoginBtn.style.display = 'none';
+                userNavProfile.style.display = 'flex';
+                mobileLoginBtn.classList.add('hidden-project');
+                mobileLogoutBtn.classList.remove('hidden-project');
+                emailDisplay.innerText = user.email || user.phoneNumber || 'Authenticated Client';
+            } else {
+                navLoginBtn.style.display = 'block';
+                userNavProfile.style.display = 'none';
+                mobileLoginBtn.classList.remove('hidden-project');
+                mobileLogoutBtn.classList.add('hidden-project');
+            }
+        });
+
+        document.getElementById('btnEmailLogin').addEventListener('click', async () => {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            try {
+                showMessage("Signing in...", false);
+                await signInWithEmailAndPassword(auth, email, pass);
+            } catch (error) {
+                showMessage(error.message, true);
+            }
+        });
+
+        document.getElementById('btnEmailSignup').addEventListener('click', async () => {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            try {
+                showMessage("Creating account...", false);
+                await createUserWithEmailAndPassword(auth, email, pass);
+            } catch (error) {
+                showMessage(error.message, true);
+            }
+        });
+
+        document.getElementById('btnGoogleLogin').addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                showMessage("Redirecting to Google...", false);
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                showMessage(error.message, true);
+            }
+        });
+
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'normal' });
+
+        document.getElementById('btnSendPhoneCode').addEventListener('click', async () => {
+            const phoneNumber = document.getElementById('authPhone').value;
+            if(!phoneNumber) return showMessage("Please enter a valid phone number", true);
+            
+            try {
+                showMessage("Sending SMS...", false);
+                confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+                document.getElementById('phoneInputStep').style.display = 'none';
+                document.getElementById('phoneVerifyStep').style.display = 'flex';
+                showMessage("Code sent! Enter it below.", false);
+            } catch (error) {
+                showMessage(error.message, true);
+            }
+        });
+
+        document.getElementById('btnVerifyPhoneCode').addEventListener('click', async () => {
+            const code = document.getElementById('authCode').value;
+            if(!code) return showMessage("Please enter the code", true);
+
+            try {
+                showMessage("Verifying...", false);
+                await confirmationResult.confirm(code);
+            } catch (error) {
+                showMessage("Invalid code. Please try again.", true);
+            }
+        });
+
+        const performLogout = async () => {
+            try { await signOut(auth); } 
+            catch (error) { console.error("Logout Error", error); }
+        };
+        document.getElementById('navLogoutBtn').addEventListener('click', performLogout);
+        document.getElementById('mobileNavLogoutBtn').addEventListener('click', () => {
+            performLogout();
+            document.getElementById('mobileDrawer').classList.remove('is-active');
+        });
+
     </script>
 </body>
 </html>
