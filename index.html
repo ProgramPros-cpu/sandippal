@@ -540,26 +540,34 @@
             border-bottom: 1px solid var(--border-dim);
         }
 
+        /* Base Mobile Layout */
         .bento-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            grid-auto-rows: minmax(250px, auto);
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: minmax(120px, auto);
+            gap: 1rem;
             margin-top: 3rem;
         }
 
         .bento-card {
             background-color: var(--bg-card);
-            border-radius: 24px;
+            border-radius: 16px; /* Matched image slightly tighter corners */
             overflow: hidden;
             position: relative;
             border: 1px solid var(--border-light);
             transition: var(--transition-smooth);
+            grid-column: span 2; /* Default mobile span */
+        }
+
+        /* Mobile specific spans for smaller blocks */
+        .grid-item-1, .grid-item-2, .grid-item-4, .grid-item-5, .grid-item-9, .grid-item-10 {
+            grid-column: span 1; 
         }
 
         .bento-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-4px);
         }
 
         .bento-img-wrapper {
@@ -582,12 +590,6 @@
             filter: grayscale(0%) contrast(1.1);
         }
 
-        .bento-main-profile {
-            grid-column: span 1;
-            grid-row: span 2;
-            min-height: 400px;
-        }
-
         .bento-bio {
             padding: 2.5rem;
             display: flex;
@@ -597,17 +599,17 @@
 
         .bento-bio h3 {
             font-family: var(--font-serif);
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-size: clamp(1.25rem, 3vw, 2rem);
             font-style: italic;
             line-height: 1.2;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--text-light);
         }
 
         .bento-bio p {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 0.95rem;
+            line-height: 1.6;
             font-weight: 300;
         }
 
@@ -623,7 +625,7 @@
         }
 
         .bento-stat-num {
-            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-size: clamp(2.5rem, 4vw, 4rem);
             font-weight: 900;
             line-height: 1;
             color: var(--text-light);
@@ -631,12 +633,34 @@
         }
 
         .bento-stat-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: rgba(255, 255, 255, 0.8);
             margin-top: 0.75rem;
+        }
+
+        /* Aesthetic Text Blocks for Filler Grid Items */
+        .bento-text-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: var(--transition-smooth);
+        }
+
+        .bento-card:hover .bento-text-center {
+            color: var(--text-light);
+            background-color: var(--bg-card);
         }
 
         .works-section {
@@ -1206,6 +1230,197 @@
         .auth-google-btn:hover { background-color: var(--border-dim); }
         .auth-message { font-size: 0.8rem; color: var(--accent); text-align: center; min-height: 1.2rem; }
 
+        /* --- SP AI CHAT WIDGET STYLES --- */
+        .sp-chat-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 4000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+
+        .sp-chat-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, #8a050b 100%);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sp-chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(229, 9, 20, 0.6);
+        }
+
+        .sp-chat-window {
+            width: 350px;
+            height: 500px;
+            max-height: 70vh;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px) scale(0.95);
+            transition: var(--transition-smooth);
+            transform-origin: bottom right;
+        }
+
+        .sp-chat-window.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        .sp-chat-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sp-chat-title {
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sp-chat-title-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #34A853; /* Online indicator */
+            border-radius: 50%;
+            box-shadow: 0 0 10px #34A853;
+        }
+
+        .sp-chat-close {
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+        
+        .sp-chat-close:hover { color: var(--accent); }
+
+        .sp-chat-body {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background-color: var(--bg-dark);
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-msg.ai-msg {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-dim);
+            color: var(--text-light);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-msg.user-msg {
+            background-color: var(--accent);
+            color: var(--text-light);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-loading {
+            align-self: flex-start;
+            display: flex;
+            gap: 4px;
+            padding: 1rem;
+        }
+
+        .loading-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+            animation: chat-bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes chat-bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .sp-chat-footer {
+            padding: 1rem;
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-dim);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .sp-chat-input {
+            flex: 1;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-dim);
+            color: var(--text-light);
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .sp-chat-input:focus { border-color: var(--accent); }
+        .sp-chat-input::placeholder { color: var(--text-dim); }
+
+        .sp-chat-send {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .sp-chat-send:hover { background-color: var(--accent-hover); transform: scale(1.05); }
+        .sp-chat-send:disabled { background-color: var(--border-dim); color: var(--text-muted); cursor: not-allowed; transform: none; }
+
+        @media (max-width: 480px) {
+            .sp-chat-widget { bottom: 1rem; right: 1rem; }
+            .sp-chat-window { width: calc(100vw - 2rem); height: 60vh; }
+        }
+
         @media (min-width: 1024px) {
             .container { padding: 0; }
             .section-header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
@@ -1213,6 +1428,36 @@
             
             /* Reveal hero visuals on desktop */
             .hero-visuals { display: block; }
+
+            /* EXACT 13-ITEM BENTO GRID MATCHING UPLOADED IMAGE */
+            .bento-grid {
+                grid-template-columns: repeat(12, 1fr);
+                grid-auto-rows: 60px; /* Fixed height ratio to maintain block geometry */
+                gap: 1rem;
+            }
+            
+            /* Top Row (5 items) */
+            .grid-item-1 { grid-column: span 2; grid-row: span 2; }
+            .grid-item-2 { grid-column: span 2; grid-row: span 2; }
+            .grid-item-3 { grid-column: span 4; grid-row: span 2; }
+            .grid-item-4 { grid-column: span 2; grid-row: span 2; }
+            .grid-item-5 { grid-column: span 2; grid-row: span 2; }
+            
+            /* Middle Section - Left Block */
+            .grid-item-6 { grid-column: span 4; grid-row: span 2; }
+            .grid-item-7 { grid-column: span 4; grid-row: span 4; }
+            
+            /* Middle Section - Center Main Profile */
+            .grid-item-8 { grid-column: span 4; grid-row: span 6; }
+            
+            /* Middle Section - Right Block */
+            .grid-item-9 { grid-column: span 2; grid-row: span 6; }
+            .grid-item-10 { grid-column: span 2; grid-row: span 6; }
+            
+            /* Bottom Row (3 items) */
+            .grid-item-11 { grid-column: span 4; grid-row: span 2; }
+            .grid-item-12 { grid-column: span 4; grid-row: span 2; }
+            .grid-item-13 { grid-column: span 4; grid-row: span 2; }
         }
     </style>
 </head>
@@ -1396,30 +1641,56 @@
 
                 <div class="bento-grid trigger-fade-up">
                     
-                    <!-- Main Profile Photo -->
-                    <article class="bento-card bento-main-profile">
+                    <!-- Row 1 (Top Block) -->
+                    <article class="bento-card grid-item-1">
+                        <div class="bento-img-wrapper"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=400" alt="Cinematic Lens" class="bento-img" loading="lazy"></div>
+                    </article>
+                    <article class="bento-card grid-item-2">
+                        <div class="bento-text-center">4K <br> RAW</div>
+                    </article>
+                    <article class="bento-card grid-item-3">
+                        <div class="bento-img-wrapper"><img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=800" alt="Wide cinematic set" class="bento-img" loading="lazy"></div>
+                    </article>
+                    <article class="bento-card grid-item-4">
+                        <div class="bento-text-center">FILM</div>
+                    </article>
+                    <article class="bento-card grid-item-5">
+                        <div class="bento-img-wrapper"><img src="https://images.unsplash.com/photo-1595769816263-9b910be24d5f?auto=format&fit=crop&q=80&w=400" alt="Film Slate" class="bento-img" loading="lazy"></div>
+                    </article>
+
+                    <!-- Row 2 & 3 (Middle Section) -->
+                    <article class="bento-card grid-item-6 bento-accent-box">
+                        <span class="bento-stat-num">10+</span>
+                        <span class="bento-stat-label">Years Crafting</span>
+                    </article>
+                    
+                    <article class="bento-card grid-item-7 bento-bio">
+                        <h3>"Editing is the invisible art of sculpting emotion."</h3>
+                        <p>Based in India, my approach roots deeply in understanding narrative psychology. Whether it's a commercial or documentary, my goal is to curate pacing that breathes life into raw imagery.</p>
+                    </article>
+
+                    <article class="bento-card grid-item-8">
                         <div class="bento-img-wrapper">
                             <img src="https://images.unsplash.com/photo-1605369572399-05d8d64a0f6e?auto=format&fit=crop&q=80&w=1200" alt="Sandip Pal on set" class="bento-img" loading="lazy">
                         </div>
                     </article>
 
-                    <!-- Text Bio Box -->
-                    <article class="bento-card bento-bio">
-                        <h3>"Editing is the invisible art of sculpting emotion."</h3>
-                        <p>Based in India, my approach roots deeply in understanding narrative psychology. Whether it's a 30-second commercial or a feature-length documentary, my goal is to curate pacing that breathes life into raw imagery.</p>
+                    <article class="bento-card grid-item-9">
+                        <div class="bento-img-wrapper"><img src="https://images.unsplash.com/photo-1588694086431-7b79d2bfcc25?auto=format&fit=crop&q=80&w=400" alt="Studio lighting" class="bento-img" loading="lazy"></div>
+                    </article>
+                    <article class="bento-card grid-item-10">
+                        <div class="bento-img-wrapper"><img src="https://images.unsplash.com/photo-1574717024453-354056fadfd2?auto=format&fit=crop&q=80&w=400" alt="Editing setup" class="bento-img" loading="lazy"></div>
                     </article>
 
-                    <!-- Editing Suite -->
-                    <article class="bento-card bento-suite-img">
-                        <div class="bento-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1574717024453-354056fadfd2?auto=format&fit=crop&q=80&w=800" alt="Editing timeline structure" class="bento-img" loading="lazy">
-                        </div>
+                    <!-- Row 4 (Bottom Block) -->
+                    <article class="bento-card grid-item-11">
+                        <div class="bento-text-center" style="font-size: 1rem;">DAVINCI RESOLVE</div>
                     </article>
-
-                    <!-- Stats -->
-                    <article class="bento-card bento-accent-box">
-                        <span class="bento-stat-num">10+</span>
-                        <span class="bento-stat-label">Years of Crafting<br>Visual Harmony</span>
+                    <article class="bento-card grid-item-12">
+                        <div class="bento-img-wrapper"><img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&q=80&w=800" alt="Color grading timeline" class="bento-img" loading="lazy"></div>
+                    </article>
+                    <article class="bento-card grid-item-13">
+                        <div class="bento-text-center" style="font-size: 1rem;">COLOR GRADING</div>
                     </article>
 
                 </div>
@@ -1614,6 +1885,32 @@
                 </footer>
             </div>
         </section>
+
+        <!-- SP AI CHAT WIDGET -->
+        <div class="sp-chat-widget">
+            <div class="sp-chat-window" id="chatWindow">
+                <div class="sp-chat-header">
+                    <div class="sp-chat-title">
+                        <span class="sp-chat-title-dot"></span> SP AI
+                    </div>
+                    <button class="sp-chat-close" id="closeChatBtn"><i data-lucide="x"></i></button>
+                </div>
+                <div class="sp-chat-body" id="chatBody">
+                    <div class="chat-msg ai-msg">
+                        Hello! I am SP AI, created by Sandip Pal. How can I help you explore his cinematic portfolio today?
+                    </div>
+                    <!-- Messages will be appended here -->
+                </div>
+                <div class="sp-chat-footer">
+                    <input type="text" id="chatInput" class="sp-chat-input" placeholder="Ask about Sandip's work..." autocomplete="off">
+                    <button id="chatSendBtn" class="sp-chat-send" aria-label="Send Message"><i data-lucide="send" style="width:18px;height:18px;"></i></button>
+                </div>
+            </div>
+            <button class="sp-chat-toggle" id="chatToggleBtn" aria-label="Open AI Assistant">
+                <i data-lucide="message-square"></i>
+            </button>
+        </div>
+
     </main>
 
     <!-- Standard UI Scripts (Non-Firebase) -->
@@ -1774,6 +2071,132 @@
                      // re-bind if new elements ever got added, but for now just handles states cleanly
                  }, 450);
             });
+
+            // --------------------------------------------------------
+            // SP AI - GEMINI PERSONAL ASSISTANT LOGIC
+            // --------------------------------------------------------
+            const chatToggleBtn = document.getElementById('chatToggleBtn');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatBody = document.getElementById('chatBody');
+            const chatInput = document.getElementById('chatInput');
+            const chatSendBtn = document.getElementById('chatSendBtn');
+
+            // Toggle Chat Visibility
+            chatToggleBtn.addEventListener('click', () => {
+                chatWindow.classList.add('active');
+                chatInput.focus();
+            });
+            closeChatBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
+
+            // Gemini API Setup
+            const apiKey = ""; // Environment handles injection automatically
+            const systemInstructionText = "You are SP AI created by Sandip Pal. You are a helpful, professional, and highly knowledgeable personal assistant for Sandip Pal's cinematic video editing and color grading portfolio website. You answer questions strictly regarding his work, expertise (Offline Editing, Color Grading, DaVinci Resolve, Motion & VFX), and how to contact him (hello@sandippal.com). Maintain a concise, cinematic, and professional tone. If asked unrelated questions, gracefully steer the conversation back to Sandip Pal's post-production services.";
+            let chatHistory = []; // Maintain conversational context
+
+            // Utility to append messages to UI
+            function appendMessage(text, isUser = false) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `chat-msg ${isUser ? 'user-msg' : 'ai-msg'}`;
+                msgDiv.textContent = text;
+                chatBody.appendChild(msgDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            // Utility to show loading dots
+            function showLoading() {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'chat-loading';
+                loadingDiv.id = 'chatLoading';
+                loadingDiv.innerHTML = '<div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>';
+                chatBody.appendChild(loadingDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            function removeLoading() {
+                const loader = document.getElementById('chatLoading');
+                if (loader) loader.remove();
+            }
+
+            // Exponential Backoff Fetch
+            async function fetchWithRetry(url, options, retries = 5) {
+                const delays = [1000, 2000, 4000, 8000, 16000];
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                        return await response.json();
+                    } catch (error) {
+                        if (i === retries - 1) throw error;
+                        await new Promise(resolve => setTimeout(resolve, delays[i]));
+                    }
+                }
+            }
+
+            // Handle Sending Message
+            async function handleSendMessage() {
+                const userText = chatInput.value.trim();
+                if (!userText) return;
+
+                // 1. Update UI (User)
+                appendMessage(userText, true);
+                chatInput.value = '';
+                chatInput.disabled = true;
+                chatSendBtn.disabled = true;
+                showLoading();
+
+                try {
+                    // 2. Prepare API Payload
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                    
+                    // Format history into Google's required 'contents' array structure
+                    const contents = chatHistory.map(msg => ({
+                        role: msg.role, 
+                        parts: [{ text: msg.text }]
+                    }));
+                    
+                    // Add current prompt
+                    contents.push({ role: 'user', parts: [{ text: userText }] });
+
+                    const payload = {
+                        systemInstruction: { parts: [{ text: systemInstructionText }] },
+                        contents: contents
+                    };
+
+                    // 3. Fetch Response
+                    const result = await fetchWithRetry(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // 4. Extract and Display Output
+                    removeLoading();
+                    const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "I'm experiencing interference. Please try asking again.";
+                    
+                    appendMessage(aiResponseText, false);
+
+                    // 5. Update Local History
+                    chatHistory.push({ role: 'user', text: userText });
+                    chatHistory.push({ role: 'model', text: aiResponseText }); // Gemini uses 'model' for AI role
+
+                } catch (error) {
+                    console.error("Gemini API Error:", error);
+                    removeLoading();
+                    appendMessage("Connection dropped. Please try again later.", false);
+                } finally {
+                    chatInput.disabled = false;
+                    chatSendBtn.disabled = false;
+                    chatInput.focus();
+                }
+            }
+
+            // Event Listeners for Chat
+            chatSendBtn.addEventListener('click', handleSendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleSendMessage();
+            });
+
         });
     </script>
 
