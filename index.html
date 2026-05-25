@@ -1421,6 +1421,19 @@
             .sp-chat-window { width: calc(100vw - 2rem); height: 60vh; }
         }
 
+        /* Responsive Grid Adjustments for Projects */
+        @media (min-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+            }
+            
+            /* Staggered offset for the 2nd column items to create a masonry look */
+            .desktop-offset {
+                margin-top: 6rem;
+            }
+        }
+
         @media (min-width: 1024px) {
             .container { padding: 0; }
             .section-header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
