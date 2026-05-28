@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hero Background Layout</title>
+    <title>Cinematic Portfolio</title>
     <style>
         /* CSS3 - Vanilla styling, no frameworks */
         
@@ -20,12 +20,34 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #050505; /* Darkened base to match the cinematic vibe */
+            background-color: #050505; 
             color: #eee;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden; 
+        }
+
+        /* --- Global Cinematic Film Grain --- */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.04"/></svg>');
+            pointer-events: none; /* Allows clicking through the grain */
+            z-index: 9998; /* Just below the custom cursor and overlays */
         }
 
         /* --- Header & Navigation --- */
@@ -39,13 +61,18 @@
             align-items: center;
             padding: 20px 60px;
             z-index: 1000;
-            background: transparent;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.8) 0%, transparent 100%);
         }
 
         .logo-container img {
             height: 45px;
             width: auto;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover img {
+            transform: scale(1.05);
         }
 
         /* --- Mobile Menu Button --- */
@@ -67,18 +94,19 @@
             transition: all 0.3s ease;
         }
 
-        /* Hamburger Animation */
         .mobile-menu-btn.active span:nth-child(1) {
             transform: translateY(9px) rotate(45deg);
+            background-color: #c71520;
         }
         .mobile-menu-btn.active span:nth-child(2) {
             opacity: 0;
         }
         .mobile-menu-btn.active span:nth-child(3) {
             transform: translateY(-9px) rotate(-45deg);
+            background-color: #c71520;
         }
 
-        /* --- Loading Spinner --- */
+        /* --- Loading Spinner & Pulse --- */
         .spinner {
             width: 40px;
             height: 40px;
@@ -91,6 +119,16 @@
 
         @keyframes spin { 
             100% { transform: rotate(360deg); } 
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 4px 15px rgba(199, 21, 32, 0.4), inset 0 1px 0 rgba(255,255,255,0.2); }
+            50% { box-shadow: 0 4px 30px rgba(199, 21, 32, 0.8), inset 0 1px 0 rgba(255,255,255,0.4); }
+            100% { box-shadow: 0 4px 15px rgba(199, 21, 32, 0.4), inset 0 1px 0 rgba(255,255,255,0.2); }
+        }
+
+        #enterBtn {
+            animation: pulseGlow 2s infinite;
         }
 
         .nav-container {
@@ -118,6 +156,7 @@
 
         .nav-menu a:hover {
             color: #c71520; 
+            text-shadow: 0 0 10px rgba(199, 21, 32, 0.5);
         }
         
         .nav-menu a::after {
@@ -129,6 +168,7 @@
             height: 2px;
             background-color: #c71520;
             transition: width 0.3s ease;
+            box-shadow: 0 0 8px #c71520;
         }
 
         .nav-menu a:hover::after {
@@ -172,7 +212,6 @@
             overflow: hidden;
         }
 
-        /* Parallax Wrapper */
         .parallax-container {
             position: absolute;
             width: 100%;
@@ -181,7 +220,6 @@
             left: 0;
         }
 
-        /* Base styles for wrappers */
         .layer-wrapper {
             position: absolute;
             bottom: 0;
@@ -190,7 +228,6 @@
             display: flex;
             justify-content: center;
             cursor: pointer;
-            /* Hint browser to prepare for animation */
             will-change: transform, opacity;
         }
 
@@ -199,9 +236,8 @@
             width: auto;
             max-width: none;
             filter: drop-shadow(0 -10px 20px rgba(0,0,0,0.4));
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
             transform-origin: bottom center;
-            /* Force GPU Hardware Acceleration on mobile */
             backface-visibility: hidden;
             transform: translateZ(0);
             will-change: transform, filter;
@@ -228,7 +264,6 @@
             z-index: 20;
         }
 
-        /* Image Specific Heights and Z-Indexes */
         .center-wrapper { z-index: 10; height: 90vh; }
         .left1-wrapper  { z-index: 9; height: 75vh; }
         .right1-wrapper { z-index: 9; height: 63vh; }
@@ -237,22 +272,21 @@
         .left3-wrapper  { z-index: 7; height: 55vh; }
         .right3-wrapper { z-index: 7; height: 45vh; }
 
-        /* Trigger Animations ONLY when .start-anim class is added */
-        .hero.start-anim .center-wrapper { animation: slideCenter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
-        .hero.start-anim .left1-wrapper  { animation: slideLeft1  1s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards; }
-        .hero.start-anim .right1-wrapper { animation: slideRight1 1s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards; }
-        .hero.start-anim .left2-wrapper  { animation: slideLeft2  1s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards; }
-        .hero.start-anim .right2-wrapper { animation: slideRight2 1s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards; }
-        .hero.start-anim .left3-wrapper  { animation: slideLeft3  1s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards; }
-        .hero.start-anim .right3-wrapper { animation: slideRight3 1s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards; }
+        /* Cascading Animations */
+        .hero.start-anim .center-wrapper { animation: slideCenter 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards; }
+        .hero.start-anim .left1-wrapper  { animation: slideLeft1  1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards; }
+        .hero.start-anim .right1-wrapper { animation: slideRight1 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards; }
+        .hero.start-anim .left2-wrapper  { animation: slideLeft2  1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.6s forwards; }
+        .hero.start-anim .right2-wrapper { animation: slideRight2 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.6s forwards; }
+        .hero.start-anim .left3-wrapper  { animation: slideLeft3  1.2s cubic-bezier(0.25, 1, 0.5, 1) 2.2s forwards; }
+        .hero.start-anim .right3-wrapper { animation: slideRight3 1.2s cubic-bezier(0.25, 1, 0.5, 1) 2.2s forwards; }
 
-        /* Hover Interactive State (Active only after animations finish) */
         .hero.interactive .layer-wrapper {
             transition: z-index 0s;
         }
         
         .hero.interactive .parallax-container:hover .layer-wrapper:not(:hover) .layer-img {
-            filter: brightness(0.3) grayscale(0.8) drop-shadow(0 0 0 transparent);
+            filter: brightness(0.2) grayscale(0.9) blur(2px) drop-shadow(0 0 0 transparent);
         }
 
         .hero.interactive .layer-wrapper:hover {
@@ -260,8 +294,8 @@
         }
 
         .hero.interactive .layer-wrapper:hover .layer-img {
-            transform: scale(1.05);
-            filter: brightness(1.1) contrast(1.1) drop-shadow(0 -10px 40px rgba(199,21,32,0.6));
+            transform: scale(1.06);
+            filter: brightness(1.15) contrast(1.1) drop-shadow(0 -10px 50px rgba(199,21,32,0.7));
         }
 
         .hero.interactive .layer-wrapper:hover .layer-title {
@@ -269,12 +303,10 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Cascading Animation Keyframes using CSS Variables for responsive spread */
         @keyframes slideCenter {
             0%   { opacity: 0; transform: translateX(-50%) translateY(100px); }
             100% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
-
         @keyframes slideLeft1 {
             0%   { opacity: 0; transform: translateX(-50%); }
             1%   { opacity: 1; transform: translateX(-50%); }
@@ -285,7 +317,6 @@
             1%   { opacity: 1; transform: translateX(-50%); }
             100% { opacity: 1; transform: translateX(calc(-50% + var(--spread-1))); }
         }
-
         @keyframes slideLeft2 {
             0%   { opacity: 0; transform: translateX(calc(-50% - var(--spread-1))); }
             1%   { opacity: 1; transform: translateX(calc(-50% - var(--spread-1))); }
@@ -296,7 +327,6 @@
             1%   { opacity: 1; transform: translateX(calc(-50% + var(--spread-1))); }
             100% { opacity: 1; transform: translateX(calc(-50% + var(--spread-2))); }
         }
-
         @keyframes slideLeft3 {
             0%   { opacity: 0; transform: translateX(calc(-50% - var(--spread-2))); }
             1%   { opacity: 1; transform: translateX(calc(-50% - var(--spread-2))); }
@@ -328,7 +358,7 @@
 
         .marquee-content {
             display: inline-block;
-            animation: marqueeScroll 20s linear infinite;
+            animation: marqueeScroll 25s linear infinite;
             font-size: 0.9rem;
             font-weight: 900;
             letter-spacing: 8px;
@@ -352,7 +382,6 @@
             color: #eee;
             z-index: 10;
             overflow: hidden; 
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.04"/></svg>');
         }
 
         .bg-shape {
@@ -396,6 +425,7 @@
             background: linear-gradient(to top, #ff0000 0%, #8a0000 25%, transparent 100%);
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
             position: relative;
+            transition: height 0.1s ease-out;
         }
 
         .scroll-line-progress::after {
@@ -483,7 +513,7 @@
             background: #c71520;
             transform: scaleY(0);
             transform-origin: top;
-            transition: transform 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .dossier-card:hover {
@@ -522,8 +552,8 @@
 
         .reveal-up {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(50px);
+            transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
         .reveal-up.active {
@@ -535,11 +565,45 @@
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
 
+        /* --- Footer --- */
+        .site-footer {
+            background-color: #030303;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .site-footer p {
+            color: #555;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .creator-info {
+            margin-top: 15px;
+            font-size: 0.65rem !important;
+            letter-spacing: 2px !important;
+            color: #444 !important;
+        }
+
+        .creator-info a {
+            color: #8a0e15;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .creator-info a:hover {
+            color: #c71520;
+            text-shadow: 0 0 10px rgba(199, 21, 32, 0.8);
+        }
+
         /* --- Audio Control Button --- */
         .audio-control {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
             background: rgba(20, 20, 20, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
@@ -551,13 +615,15 @@
             justify-content: center;
             cursor: pointer;
             z-index: 2000;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
         .audio-control:hover {
             background: rgba(199, 21, 32, 0.8);
             border-color: #c71520;
+            transform: scale(1.1);
         }
         
         .audio-control svg {
@@ -568,17 +634,26 @@
 
         /* --- Custom Cinematic Cursor --- */
         .custom-cursor {
-            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
-            background-color: #c71520; border-radius: 50%;
-            pointer-events: none; z-index: 100000; 
-            transform: translate(-50%, -50%); 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 12px; height: 12px;
+            background-color: #c71520; 
+            border-radius: 50%;
+            pointer-events: none; 
+            z-index: 100000; 
+            /* Let JS handle translation for better performance, CSS handles scaling/colors */
             transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, opacity 0.3s;
             mix-blend-mode: difference;
         }
         .custom-cursor.hovering { 
             width: 50px; height: 50px; 
-            background-color: #eee; 
-            opacity: 0.8;
+            background-color: #fff; 
+            opacity: 0.9;
+        }
+
+        /* Disable custom cursor entirely on mobile/touch screens for better performance */
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor { display: none !important; }
         }
 
         /* Responsive Adjustments */
@@ -589,21 +664,24 @@
             .mobile-menu-btn {
                 display: flex;
             }
+            
+            /* Full Screen Mobile Menu Overlay */
             .nav-container {
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 0;
                 left: 0;
-                width: 100%;
-                background-color: rgba(5, 5, 5, 0.95);
-                backdrop-filter: blur(10px);
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(5, 5, 5, 0.98);
+                backdrop-filter: blur(15px);
                 flex-direction: column;
-                padding: 40px 20px;
-                gap: 30px;
-                border-bottom: 1px solid rgba(199, 21, 32, 0.3);
+                justify-content: center; /* Center items vertically */
+                align-items: center;
+                gap: 40px;
                 opacity: 0;
                 pointer-events: none;
-                transform: translateY(-10px);
-                transition: all 0.4s ease;
+                transform: translateY(-20px);
+                transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             }
             
             .nav-container.active {
@@ -615,38 +693,36 @@
             .nav-menu {
                 flex-direction: column;
                 align-items: center;
-                gap: 25px;
+                gap: 30px;
             }
             .nav-menu a {
-                font-size: 1rem;
+                font-size: 1.2rem; /* Larger touch targets */
+            }
+            .audio-control {
+                bottom: 20px;
+                right: 20px;
             }
         }
 
         @media (max-width: 768px) {
             :root {
-                /* Dynamically increase the spread distance on mobile to accommodate large images */
                 --spread-1: 18vw;
                 --spread-2: 36vw;
                 --spread-3: 54vw;
             }
 
             .hero {
-                /* Better aspect ratio preservation on mobile */
                 background-size: cover; 
-                background-attachment: scroll; /* Fixes fixed-background bugs on mobile iOS */
+                background-attachment: scroll; 
             }
             
             .manifesto-section {
                 padding: 80px 20px;
             }
-
-            /* Hide custom cursor on touch/mobile devices */
-            .custom-cursor { display: none; } 
         }
 
         @media (max-width: 480px) {
             :root {
-                /* Further increase spread distance on extra small screens */
                 --spread-1: 22vw;
                 --spread-2: 44vw;
                 --spread-3: 66vw;
@@ -669,9 +745,9 @@
             <p style="letter-spacing: 4px; font-size: 0.85rem; color: #888; text-transform: uppercase;">Loading Assets...</p>
         </div>
 
-        <!-- Ready State (Hidden initially) -->
+        <!-- Ready State -->
         <div id="readyContent" style="display: none; text-align: center;">
-            <h2 style="font-weight: 300; letter-spacing: 6px; margin-bottom: 30px; font-size: 1.2rem; text-transform: uppercase;">Experience the Portfolio</h2>
+            <h2 style="font-weight: 300; letter-spacing: 6px; margin-bottom: 40px; font-size: 1.2rem; text-transform: uppercase;">Experience the Portfolio</h2>
             <button id="enterBtn" class="login-btn">Enter Site</button>
         </div>
 
@@ -683,7 +759,6 @@
     <!-- Audio Element -->
     <audio id="bgAudio" loop>
         <source src="audio.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <!-- Header / Navigation -->
@@ -697,7 +772,7 @@
         </div>
         
         <!-- Mobile Hamburger Icon -->
-        <div class="mobile-menu-btn" id="mobileMenuBtn">
+        <div class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
             <span></span>
             <span></span>
             <span></span>
@@ -816,8 +891,14 @@
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2024 Cinematic Portfolio. All rights reserved.</p>
+        <p class="creator-info">Website created by <a href="https://joykumbhakar.netlify.app" target="_blank" rel="noopener noreferrer">Joy Kumbhakar</a></p>
+    </footer>
+
     <!-- Audio Control Button -->
-    <div class="audio-control" id="audioToggleBtn" title="Toggle Sound">
+    <button class="audio-control" id="audioToggleBtn" aria-label="Toggle Sound">
         <!-- SVG for Sound ON -->
         <svg id="icon-sound-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
@@ -826,7 +907,7 @@
         <svg id="icon-sound-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
         </svg>
-    </div>
+    </button>
 
     <!-- JavaScript -->
     <script>
@@ -843,7 +924,6 @@
         function checkAllImagesLoaded() {
             loadedImagesCount++;
             if (loadedImagesCount === imageUrls.length) {
-                // Short delay to ensure browser paints before revealing button
                 setTimeout(() => {
                     loadingState.style.display = 'none';
                     readyContent.style.display = 'block';
@@ -851,11 +931,10 @@
             }
         }
 
-        // Force browser to cache images before showing the Enter button
         imageUrls.forEach(url => {
             const img = new Image();
             img.onload = checkAllImagesLoaded;
-            img.onerror = checkAllImagesLoaded; // Proceed even if an image fails/uses fallback
+            img.onerror = checkAllImagesLoaded; 
             img.src = url;
         });
 
@@ -870,14 +949,27 @@
         const iconSoundOff = document.getElementById('icon-sound-off');
         let isPlaying = false;
 
-        // Custom Cursor
+        // --- BUTTERY SMOOTH CURSOR (Lerp Animation) ---
         const cursor = document.getElementById('customCursor');
         const interactables = document.querySelectorAll('a, button, .login-btn, .mobile-menu-btn, .audio-control');
         
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
+
+        function animateCursor() {
+            // Linear interpolation (lerp) for smooth follow delay
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
 
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
@@ -918,7 +1010,7 @@
         enterBtn.addEventListener('click', () => {
             bgAudio.volume = 0.5;
             bgAudio.muted = false;
-            bgAudio.play();
+            bgAudio.play().catch(e => console.log('Audio autoplay prevented by browser.'));
             updateAudioUI();
 
             document.getElementById('home').classList.add('start-anim');
@@ -953,18 +1045,13 @@
 
         const revealOnScroll = new IntersectionObserver(function(entries, observer) {
             entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
             });
         }, revealOptions);
 
-        revealElements.forEach(el => {
-            revealOnScroll.observe(el);
-        });
+        revealElements.forEach(el => revealOnScroll.observe(el));
 
         // Parallax Logic
         const shape1 = document.getElementById('shape1');
@@ -972,12 +1059,13 @@
         const manifestoScrollLine = document.getElementById('manifestoScrollLine');
         const manifestoSection = document.querySelector('.manifesto-section');
 
-        window.addEventListener('scroll', () => {
-            let scrollPosition = window.scrollY;
+        let lastScrollY = window.scrollY;
+        let ticking = false;
 
-            if (scrollPosition < window.innerHeight) {
-                let moveAmount = scrollPosition * 0.15;
-                parallaxContainer.style.transform = `translateY(${moveAmount}px)`;
+        function updateParallax() {
+            if (lastScrollY < window.innerHeight) {
+                let moveAmount = lastScrollY * 0.15;
+                parallaxContainer.style.transform = `translate3d(0, ${moveAmount}px, 0)`;
             }
 
             if (manifestoSection) {
@@ -991,12 +1079,21 @@
                         manifestoScrollLine.style.height = `${scrollPercentage * 100}%`;
                     }
                     if (shape1) {
-                        shape1.style.transform = `translateY(${scrollPercentage * 250}px) rotate(${scrollPercentage * 90}deg)`;
+                        shape1.style.transform = `translate3d(0, ${scrollPercentage * 250}px, 0) rotate(${scrollPercentage * 90}deg)`;
                     }
                     if (shape2) {
-                        shape2.style.transform = `translateY(${scrollPercentage * -200}px) rotate(${scrollPercentage * -45}deg)`;
+                        shape2.style.transform = `translate3d(0, ${scrollPercentage * -200}px, 0) rotate(${scrollPercentage * -45}deg)`;
                     }
                 }
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
             }
         });
     </script>
