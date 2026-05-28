@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Background Layout</title>
+    <style>
+        /* CSS3 - Vanilla styling, no frameworks */
+        
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #050505; /* Darkened base to match the cinematic vibe */
+            color: #eee;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            z-index: 1000;
+            
+            /* Completely transparent background */
+            background: transparent;
+        }
+
+        .logo-container img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+
+        /* --- Mobile Menu Button --- */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #eee;
+            transition: all 0.3s ease;
+        }
+
+        /* Hamburger Animation */
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #a0a0a0;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            /* Matches the wide tracking of the top text in the image */
+            letter-spacing: 6px; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #c71520; /* The intense red from the image */
+        }
+        
+        /* Red underline effect on hover */
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #c71520;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Textured Login Button --- */
+        .login-btn {
+            padding: 12px 28px;
+            background-color: #c71520; /* Deep red base */
+            /* Gritty noise texture combined with a subtle gradient */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3)),
+                url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.35"/></svg>');
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            font-weight: 700;
+            border: 1px solid #8a0e15;
+            box-shadow: 0 4px 15px rgba(199, 21, 32, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: all 0.3s ease; /* Smooth color transition only */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #df1824; /* Brighter red on hover, no lift/shadow changes */
+            color: #fff;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            /* Relative positioning is crucial here to contain the absolute images */
+            position: relative; 
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            
+            /* Hero Background Setup */
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Creates a background parallax effect */
+            overflow: hidden; /* Ensures sliding images don't trigger horizontal scrollbars */
+        }
+
+        /* Parallax Wrapper */
+        .parallax-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        /* Base styles for wrappers */
+        .layer-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            opacity: 0; 
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .layer-img {
+            height: 100%;
+            width: auto;
+            max-width: none;
+            filter: drop-shadow(0 -10px 20px rgba(0,0,0,0.4));
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+            transform-origin: bottom center;
+        }
+
+        .layer-title {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid #c71520;
+            color: #fff;
+            padding: 8px 25px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(199, 21, 32, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 20;
+        }
+
+        /* Image Specific Heights and Z-Indexes */
+        .center-wrapper { z-index: 10; height: 90vh; }
+        .left1-wrapper  { z-index: 9; height: 75vh; }
+        .right1-wrapper { z-index: 9; height: 63vh; }
+        .left2-wrapper  { z-index: 8; height: 55vh; }
+        .right2-wrapper { z-index: 8; height: 55vh; }
+        .left3-wrapper  { z-index: 7; height: 55vh; }
+        .right3-wrapper { z-index: 7; height: 45vh; }
+
+        /* Trigger Animations ONLY when .start-anim class is added */
+        .hero.start-anim .center-wrapper { animation: slideCenter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+        .hero.start-anim .left1-wrapper  { animation: slideLeft1  1s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards; }
+        .hero.start-anim .right1-wrapper { animation: slideRight1 1s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards; }
+        .hero.start-anim .left2-wrapper  { animation: slideLeft2  1s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards; }
+        .hero.start-anim .right2-wrapper { animation: slideRight2 1s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards; }
+        .hero.start-anim .left3-wrapper  { animation: slideLeft3  1s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards; }
+        .hero.start-anim .right3-wrapper { animation: slideRight3 1s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards; }
+
+        /* Hover Interactive State (Active only after animations finish) */
+        .hero.interactive .layer-wrapper {
+            transition: z-index 0s;
+        }
+        
+        /* Dim all other images when container is hovered */
+        .hero.interactive .parallax-container:hover .layer-wrapper:not(:hover) .layer-img {
+            filter: brightness(0.3) grayscale(0.8) drop-shadow(0 0 0 transparent);
+        }
+
+        /* Bring hovered image to absolute front */
+        .hero.interactive .layer-wrapper:hover {
+            z-index: 100 !important;
+        }
+
+        .hero.interactive .layer-wrapper:hover .layer-img {
+            transform: scale(1.05);
+            filter: brightness(1.1) contrast(1.1) drop-shadow(0 -10px 40px rgba(199,21,32,0.6));
+        }
+
+        /* Slide title up and reveal */
+        .hero.interactive .layer-wrapper:hover .layer-title {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Cascading Animation Keyframes */
+        @keyframes slideCenter {
+            0%   { opacity: 0; transform: translateX(-50%) translateY(100px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* L1/R1 emerge from behind Center */
+        @keyframes slideLeft1 {
+            0%   { opacity: 0; transform: translateX(-50%); }
+            1%   { opacity: 1; transform: translateX(-50%); }
+            100% { opacity: 1; transform: translateX(calc(-50% - 12vw)); }
+        }
+        @keyframes slideRight1 {
+            0%   { opacity: 0; transform: translateX(-50%); }
+            1%   { opacity: 1; transform: translateX(-50%); }
+            100% { opacity: 1; transform: translateX(calc(-50% + 12vw)); }
+        }
+
+        /* L2/R2 emerge from behind L1/R1 */
+        @keyframes slideLeft2 {
+            0%   { opacity: 0; transform: translateX(calc(-50% - 12vw)); }
+            1%   { opacity: 1; transform: translateX(calc(-50% - 12vw)); }
+            100% { opacity: 1; transform: translateX(calc(-50% - 24vw)); }
+        }
+        @keyframes slideRight2 {
+            0%   { opacity: 0; transform: translateX(calc(-50% + 12vw)); }
+            1%   { opacity: 1; transform: translateX(calc(-50% + 12vw)); }
+            100% { opacity: 1; transform: translateX(calc(-50% + 24vw)); }
+        }
+
+        /* L3/R3 emerge from behind L2/R2 */
+        @keyframes slideLeft3 {
+            0%   { opacity: 0; transform: translateX(calc(-50% - 24vw)); }
+            1%   { opacity: 1; transform: translateX(calc(-50% - 24vw)); }
+            100% { opacity: 1; transform: translateX(calc(-50% - 36vw)); }
+        }
+        @keyframes slideRight3 {
+            0%   { opacity: 0; transform: translateX(calc(-50% + 24vw)); }
+            1%   { opacity: 1; transform: translateX(calc(-50% + 24vw)); }
+            100% { opacity: 1; transform: translateX(calc(-50% + 36vw)); }
+        }
+
+        /* --- NEW CINEMATIC SECTION STYLES --- */
+        
+        /* Marquee Transition Banner */
+        .marquee-banner {
+            width: 100%;
+            background-color: #c71520;
+            color: #050505;
+            padding: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #8a0e15;
+            border-bottom: 1px solid #8a0e15;
+            box-shadow: 0 5px 20px rgba(199, 21, 32, 0.2);
+            position: relative;
+            z-index: 20;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marqueeScroll 20s linear infinite;
+            font-size: 0.9rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .marquee-content span.dot {
+            margin: 0 2vw;
+            color: rgba(5, 5, 5, 0.5);
+        }
+
+        @keyframes marqueeScroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Cinematic Manifesto Section */
+        .manifesto-section {
+            position: relative;
+            background-color: #0a0a0a;
+            padding: 120px 20px;
+            color: #eee;
+            z-index: 10;
+            overflow: hidden; /* Contains the floating shapes */
+            /* SVG Noise overlay for that gritty texture seen in the image */
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.04"/></svg>');
+        }
+
+        /* --- Scroll-Responsive Parallax Shapes --- */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1; /* Keep behind content */
+            transition: transform 0.1s linear;
+        }
+
+        .shape-1 {
+            width: 800px;
+            height: 800px;
+            border: 1px solid rgba(199, 21, 32, 0.08); /* Faint red ring */
+            top: -100px;
+            left: -200px;
+        }
+
+        .shape-2 {
+            width: 1200px;
+            height: 1200px;
+            border: 2px dashed rgba(255, 255, 255, 0.03); /* Faint dashed ring */
+            bottom: -300px;
+            right: -300px;
+        }
+
+        /* Vertical Scroll Line (Optical Flare Asteroid) */
+        .scroll-line-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px; /* Thinner, sharper beam */
+            height: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            z-index: 2;
+        }
+
+        .scroll-line-progress {
+            width: 100%;
+            height: 0%; /* Start at 0, controlled by JS */
+            /* Sharp red fading smoothly up into darkness */
+            background: linear-gradient(to top, #ff0000 0%, #8a0000 25%, transparent 100%);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+            position: relative;
+        }
+
+        /* The Asteroid Head / Optical Flare Core */
+        .scroll-line-progress::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px; /* Tiny, intensely bright core */
+            height: 8px;
+            background: #ffffff; /* White-hot center */
+            border-radius: 50%; 
+            
+            /* Massive, expanding red optical glow */
+            box-shadow: 
+                0 0 10px 4px #ffffff,       /* Tight white inner halo */
+                0 0 25px 12px #ff1a1a,      /* Intense bright red primary glow */
+                0 0 70px 35px #c71520,      /* Wide mid-red aura */
+                0 0 130px 70px #590000;     /* Massive dark red ambient light bleed */
+            
+            animation: fireFlicker 0.15s infinite alternate;
+        }
+
+        /* Rapid flickering animation for the fire effect */
+        @keyframes fireFlicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+            100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+        }
+
+        .manifesto-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5; /* Keep content above shapes and lines */
+        }
+
+        .manifesto-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .manifesto-header h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .manifesto-header h2 span {
+            color: #c71520;
+            display: block;
+        }
+
+        .manifesto-header p {
+            font-size: 1.1rem;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            letter-spacing: 1px;
+        }
+
+        /* Brutalist Dossier Grid */
+        .dossier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .dossier-card {
+            background: rgba(15, 15, 15, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Red scanning line effect on hover */
+        .dossier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: #c71520;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.4s ease;
+        }
+
+        .dossier-card:hover {
+            background: rgba(20, 20, 20, 0.9);
+            border-color: rgba(199, 21, 32, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 0 40px rgba(199, 21, 32, 0.05);
+        }
+
+        .dossier-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .dossier-number {
+            font-family: monospace;
+            color: #c71520;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .dossier-card h3 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .dossier-card p {
+            color: #777;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delay for grid items to stagger them */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- Audio Control Button --- */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .audio-control:hover {
+            background: rgba(199, 21, 32, 0.8); /* Red hover */
+            border-color: #c71520;
+        }
+        
+        .audio-control svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* --- Custom Cinematic Cursor --- */
+        .custom-cursor {
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+            background-color: #c71520; border-radius: 50%;
+            pointer-events: none; z-index: 100000; /* Highest z-index */
+            transform: translate(-50%, -50%); 
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, opacity 0.3s;
+            mix-blend-mode: difference;
+        }
+        .custom-cursor.hovering { 
+            width: 50px; height: 50px; 
+            background-color: #eee; 
+            opacity: 0.8;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            header {
+                padding: 15px 30px;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .nav-container {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(5, 5, 5, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 40px 20px;
+                gap: 30px;
+                border-bottom: 1px solid rgba(199, 21, 32, 0.3);
+                
+                /* Hide menu by default on mobile */
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.4s ease;
+            }
+            
+            .nav-container.active {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+            }
+            .nav-menu a {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                /* Forces the background to compress and fit 100% of the width and height */
+                background-size: 100% 100%;
+                background-attachment: scroll;
+            }
+            
+            .center-wrapper { height: 60vh; }
+            .left1-wrapper, .right1-wrapper { height: 52vh; }
+            
+            /* Hide the outermost 2 images on both sides for cleaner mobile view */
+            .left2-wrapper, .right2-wrapper, .left3-wrapper, .right3-wrapper { 
+                display: none !important; 
+            }
+
+            /* Hide custom cursor on touch/mobile devices */
+            .custom-cursor { display: none; } 
+        }
+
+        @media (max-width: 480px) {
+            .center-wrapper { height: 50vh; }
+            .left1-wrapper, .right1-wrapper { height: 43vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cinematic Enter Overlay -->
+    <div id="enterOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #050505; z-index: 99999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; transition: opacity 0.8s ease;">
+        <h2 style="font-weight: 300; letter-spacing: 6px; margin-bottom: 30px; font-size: 1.2rem; text-transform: uppercase;">Experience the Portfolio</h2>
+        <button id="enterBtn" class="login-btn">Enter Site</button>
+    </div>
+
+    <!-- Custom Cursor Element -->
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <!-- Audio Element (No autoplay flag here, controlled via Enter Overlay) -->
+    <audio id="bgAudio" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="logo-container">
+            <img 
+                src="sandippallogo.png" 
+                alt="Sandip Pal Logo" 
+                onerror="this.onerror=null; this.src='https://dummyimage.com/150x50/111/c71520&text=LOGO';"
+            >
+        </div>
+        
+        <!-- Mobile Hamburger Icon -->
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="nav-container" id="navContainer">
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#focus">Focus</a></li>
+                <li><a href="#discipline">Discipline</a></li>
+                <li><a href="#destiny">Destiny</a></li>
+            </ul>
+            <a href="#login" class="login-btn">Login</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        
+        <div id="parallaxContainer" class="parallax-container">
+            
+            <!-- Layer 3 (Back) -->
+            <div class="layer-wrapper left3-wrapper">
+                <img src="left3.png" class="layer-img" alt="Producer" onerror="this.onerror=null; this.src='https://dummyimage.com/250x600/333/fff&text=L3';">
+                <div class="layer-title">Producer</div>
+            </div>
+            <div class="layer-wrapper right3-wrapper">
+                <img src="right3.png" class="layer-img" alt="Post Production" onerror="this.onerror=null; this.src='https://dummyimage.com/250x600/333/fff&text=R3';">
+                <div class="layer-title">Post Production</div>
+            </div>
+
+            <!-- Layer 2 (Middle) -->
+            <div class="layer-wrapper left2-wrapper">
+                <img src="left2.png" class="layer-img" alt="Sound Designer" onerror="this.onerror=null; this.src='https://dummyimage.com/300x700/444/fff&text=L2';">
+                <div class="layer-title">Sound Design</div>
+            </div>
+            <div class="layer-wrapper right2-wrapper">
+                <img src="right2.png" class="layer-img" alt="Cinematographer" onerror="this.onerror=null; this.src='https://dummyimage.com/300x700/444/fff&text=R2';">
+                <div class="layer-title">Cinematography</div>
+            </div>
+
+            <!-- Layer 1 (Front) -->
+            <div class="layer-wrapper left1-wrapper">
+                <img src="left1.png" class="layer-img" alt="Colorist" onerror="this.onerror=null; this.src='https://dummyimage.com/350x800/555/fff&text=L1';">
+                <div class="layer-title">Color Grade</div>
+            </div>
+            <div class="layer-wrapper right1-wrapper">
+                <img src="right1.png" class="layer-img" alt="VFX Artist" onerror="this.onerror=null; this.src='https://dummyimage.com/350x800/555/fff&text=R1';">
+                <div class="layer-title">VFX Artist</div>
+            </div>
+
+            <!-- Center Image (Absolute Front) -->
+            <div class="layer-wrapper center-wrapper">
+                <img src="center.png" class="layer-img" alt="Lead Editor" onerror="this.onerror=null; this.src='https://dummyimage.com/400x900/666/fff&text=Center';">
+                <div class="layer-title">Lead Editor</div>
+            </div>
+            
+        </div>
+
+    </section>
+
+    <!-- NEW CINEMATIC MANIFESTO SECTION -->
+    
+    <!-- Transition Marquee -->
+    <div class="marquee-banner">
+        <!-- We duplicate the content inside to create a seamless infinite loop -->
+        <div class="marquee-content">
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+        </div>
+        <div class="marquee-content">
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+            FOCUS <span class="dot">•</span> DISCIPLINE <span class="dot">•</span> DESTINY <span class="dot">•</span> 
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <section class="manifesto-section">
+        
+        <!-- Interactive Parallax Background Elements -->
+        <div class="scroll-line-container">
+            <div class="scroll-line-progress" id="manifestoScrollLine"></div>
+        </div>
+        <div class="bg-shape shape-1" id="shape1"></div>
+        <div class="bg-shape shape-2" id="shape2"></div>
+
+        <div class="manifesto-container">
+            
+            <div class="manifesto-header reveal-up" id="focus">
+                <h2>The Director's <span>Vision</span></h2>
+                <p>Every frame is a canvas. Every cut is a heartbeat. Editing isn't just about assembling footage; it's the invisible art of sculpting emotion and controlling time.</p>
+            </div>
+
+            <div class="dossier-grid">
+                
+                <!-- Card 1 -->
+                <div class="dossier-card reveal-up delay-1" id="discipline">
+                    <span class="dossier-number">FILE // 01</span>
+                    <h3>Precision Cutting</h3>
+                    <p>Finding the exact frame where emotion peaks. It requires relentless discipline to strip away the unnecessary and leave only the visceral truth of the scene.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="dossier-card reveal-up delay-2">
+                    <span class="dossier-number">FILE // 02</span>
+                    <h3>Color Grade</h3>
+                    <p>Manipulating light and shadow to psychologically anchor the audience. The grit, the warmth, the sterile cold—every hue serves the destiny of the narrative.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="dossier-card reveal-up delay-3" id="destiny">
+                    <span class="dossier-number">FILE // 03</span>
+                    <h3>Sound Design</h3>
+                    <p>The unseen dimension. Layering atmospheric noise, heavy impacts, and cinematic swells to ensure the visuals don't just look heavy, but feel heavy.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Audio Control Button -->
+    <div class="audio-control" id="audioToggleBtn" title="Toggle Sound">
+        <!-- SVG for Sound ON (Default) -->
+        <svg id="icon-sound-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <!-- SVG for Sound OFF (Hidden by default) -->
+        <svg id="icon-sound-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const parallaxContainer = document.getElementById('parallaxContainer');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navContainer = document.getElementById('navContainer');
+        
+        const bgAudio = document.getElementById('bgAudio');
+        const audioToggleBtn = document.getElementById('audioToggleBtn');
+        const iconSoundOn = document.getElementById('icon-sound-on');
+        const iconSoundOff = document.getElementById('icon-sound-off');
+        let isPlaying = false;
+
+        // --- CUSTOM CURSOR LOGIC ---
+        const cursor = document.getElementById('customCursor');
+        const interactables = document.querySelectorAll('a, button, .login-btn, .mobile-menu-btn, .audio-control');
+        
+        // Update cursor position
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Add hover expansion effect to interactables
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // --- MOBILE MENU LOGIC ---
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navContainer.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-menu a, .login-btn').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navContainer.classList.remove('active');
+            });
+        });
+
+        // --- AUDIO & ENTER OVERLAY LOGIC ---
+        const enterOverlay = document.getElementById('enterOverlay');
+        const enterBtn = document.getElementById('enterBtn');
+        
+        // Function to update the button UI based on audio state
+        function updateAudioUI() {
+            if (bgAudio.paused || bgAudio.muted) {
+                iconSoundOn.style.display = 'none';
+                iconSoundOff.style.display = 'block';
+                isPlaying = false;
+            } else {
+                iconSoundOn.style.display = 'block';
+                iconSoundOff.style.display = 'none';
+                isPlaying = true;
+            }
+        }
+
+        // Initially set UI to muted before they enter
+        updateAudioUI();
+
+        // When user clicks Enter, start the music and fade out the black screen
+        enterBtn.addEventListener('click', () => {
+            // Because this is a direct click, the browser will ALWAYS allow the audio to play
+            bgAudio.volume = 0.5;
+            bgAudio.muted = false;
+            bgAudio.play();
+            updateAudioUI();
+
+            // Add class to trigger the image sliding animations
+            document.getElementById('home').classList.add('start-anim');
+
+            // ENABLE HOVER INTERACTIVITY AFTER ANIMATIONS COMPLETE (3200ms)
+            setTimeout(() => {
+                document.getElementById('home').classList.add('interactive');
+            }, 3200);
+
+            // Fade out the overlay
+            enterOverlay.style.opacity = '0';
+            setTimeout(() => {
+                enterOverlay.style.display = 'none';
+            }, 800); // Wait for transition to finish before hiding
+        });
+
+        // Manual Audio Toggle Button Logic
+        audioToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the document click listener
+            
+            if (bgAudio.paused) {
+                bgAudio.play();
+                bgAudio.muted = false;
+            } else {
+                bgAudio.muted = !bgAudio.muted;
+            }
+            updateAudioUI();
+        });
+
+        // --- SCROLL ANIMATIONS (Intersection Observer) ---
+        // This makes the elements fade and slide up when they enter the viewport
+        const revealElements = document.querySelectorAll('.reveal-up');
+        
+        const revealOptions = {
+            threshold: 0.15, // Trigger when 15% of the element is visible
+            rootMargin: "0px 0px -50px 0px" 
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Stop observing once revealed
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealOnScroll.observe(el);
+        });
+
+        // --- PARALLAX LOGIC ---
+        const shape1 = document.getElementById('shape1');
+        const shape2 = document.getElementById('shape2');
+        const manifestoScrollLine = document.getElementById('manifestoScrollLine');
+        const manifestoSection = document.querySelector('.manifesto-section');
+
+        window.addEventListener('scroll', () => {
+            let scrollPosition = window.scrollY;
+
+            // Apply parallax to the wrapper containing all images
+            // This prevents JavaScript from overwriting the individual CSS transform keyframes.
+            if (scrollPosition < window.innerHeight) {
+                let moveAmount = scrollPosition * 0.15;
+                parallaxContainer.style.transform = `translateY(${moveAmount}px)`;
+            }
+
+            // Manifesto Section Parallax Elements
+            if (manifestoSection) {
+                const rect = manifestoSection.getBoundingClientRect();
+                
+                // Check if the manifesto section is currently visible in the viewport
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    
+                    // Calculate a percentage (0 to 1) of how far the user has scrolled through the section
+                    let scrollPercentage = (window.innerHeight - rect.top) / (window.innerHeight + rect.height - 200);
+                    scrollPercentage = Math.max(0, Math.min(1, scrollPercentage)); // Clamp between 0 and 1
+                    
+                    // 1. Draw the vertical red line down the screen
+                    if (manifestoScrollLine) {
+                        manifestoScrollLine.style.height = `${scrollPercentage * 100}%`;
+                    }
+                    
+                    // 2. Rotate and shift the camera lens rings
+                    if (shape1) {
+                        shape1.style.transform = `translateY(${scrollPercentage * 250}px) rotate(${scrollPercentage * 90}deg)`;
+                    }
+                    if (shape2) {
+                        shape2.style.transform = `translateY(${scrollPercentage * -200}px) rotate(${scrollPercentage * -45}deg)`;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
